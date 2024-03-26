@@ -6,13 +6,7 @@ namespace LIbrary.Models
 {
     public class User: IdentityUser, IEntityBase
     {
-        [Key] 
-        public int id { get; set; }
-        [Required]
-        public string userName { get; set; }
-        [Required]
-        public string password { get; set; }
-        public ICollection<Borrow> borrows { get; set; }
+        public virtual ICollection<Borrow> borrows { get; set; }
 
     }
 }

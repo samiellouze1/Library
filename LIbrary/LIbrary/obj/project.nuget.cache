@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "39MVpUfSGfJk/BrvU5PDboC/zWwAuioSIKPc57mOWxW92GMEo64PGuqh3C715wYqJVTxaVuxLeZzfCRXQj0e/A==",
+  "dgSpecHash": "56dzCP1JoAycVLUCmHjmWK7Mfb00xermV7VX3uyF0VWPbsIz/q+nYEdlnAyXZ2avKodBjSyKEbx5gGs2xQsSkA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\LIbrary.csproj",
   "expectedPackageFiles": [
@@ -28,6 +28,7 @@
     "C:\\Users\\ThinkPad\\.nuget\\packages\\microsoft.entityframeworkcore.proxies\\8.0.3\\microsoft.entityframeworkcore.proxies.8.0.3.nupkg.sha512",
     "C:\\Users\\ThinkPad\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.3\\microsoft.entityframeworkcore.relational.8.0.3.nupkg.sha512",
     "C:\\Users\\ThinkPad\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\8.0.3\\microsoft.entityframeworkcore.sqlserver.8.0.3.nupkg.sha512",
+    "C:\\Users\\ThinkPad\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\8.0.3\\microsoft.entityframeworkcore.tools.8.0.3.nupkg.sha512",
     "C:\\Users\\ThinkPad\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\ThinkPad\\.nuget\\packages\\microsoft.extensions.caching.memory\\8.0.0\\microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",
     "C:\\Users\\ThinkPad\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",

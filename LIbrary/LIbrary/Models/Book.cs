@@ -7,7 +7,7 @@ namespace LIbrary.Models
     public class Book:IEntityBase
     {
         [Key]
-        public int id { get; set; }
+        public string Id { get; set; }
         [Required]
         public string title { get; set; }
         [Required]
@@ -15,13 +15,13 @@ namespace LIbrary.Models
         [Required]  
         public DateTime dateOfCreation { get; set; }
         [Required]
-        public String coverUrl { get; set; }
+        public string coverUrl { get; set; }
         [ForeignKey("author")]
-        public int authorId { get; set; }
-        public Author author { get; set; }
-        public int genreId { get; set; }
-        public Genre genre { get; set; }
-        public ICollection<BookCopy> bookCopies { get; set; }
+        public string authorId { get; set; }
+        public virtual Author author { get; set; }
+        public string genreId { get; set; }
+        public virtual Genre genre { get; set; }
+        public virtual ICollection<BookCopy> bookCopies { get; set; }
 
     }
 }

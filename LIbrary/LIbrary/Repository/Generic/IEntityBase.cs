@@ -3,6 +3,6 @@ namespace LIbrary.Repository.Generic
 {
     public interface IEntityBase
     {
-        public int id { get; set; }
+        public string Id { get; set; }
     }
 }

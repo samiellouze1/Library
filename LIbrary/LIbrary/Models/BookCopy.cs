@@ -6,16 +6,14 @@ namespace LIbrary.Models
     public class BookCopy : IEntityBase
     {
         [Key]
-        public int id { get; set; }
-        public int bookId { get; set; }
-        public Book book { get; set; }
-        public int availabilityStatusId { get; set; }
-        public AvailabilityStatus availabilityStatus { get; set; }
-        public int bookCopyStatusId { get; set; }
-        public BookCopyStatus bookCopyStatus { get; set; }
-        public int bookCopyId { get; set; }
-        public BookCopy bookCopy { get; set; }
-        public ICollection<Borrow> borrows { get; set; }
+        public string Id { get; set; }
+        public string bookId { get; set; }
+        public virtual Book book { get; set; }
+        public string availabilityStatusId { get; set; }
+        public virtual AvailabilityStatus availabilityStatus { get; set; }
+        public string bookCopyStatusId { get; set; }
+        public virtual BookCopyStatus bookCopyStatus { get; set; }
+        public virtual ICollection<Borrow> borrows { get; set; }
 
     }
 }

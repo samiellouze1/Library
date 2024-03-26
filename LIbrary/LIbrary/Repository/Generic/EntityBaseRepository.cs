@@ -19,9 +19,9 @@ namespace LIbrary.Repository.Generic
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
-            var entity = await _context.Set<T>().FirstOrDefaultAsync(n => n.id == id);
+            var entity = await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
             EntityEntry entityEntry = _context.Entry<T>(entity);
             entityEntry.State = EntityState.Deleted;
 
@@ -38,16 +38,16 @@ namespace LIbrary.Repository.Generic
 
         }
 
-        public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.id == id);
+        public async Task<T> GetByIdAsync(string id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
 
-        public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> GetByIdAsync(string id, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = _context.Set<T>();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-            return await query.FirstOrDefaultAsync(n => n.id == id);
+            return await query.FirstOrDefaultAsync(n => n.Id == id);
         }
 
-        public async Task UpdateAsync(int id, T entity)
+        public async Task UpdateAsync(string id, T entity)
         {
             EntityEntry entityEntry = _context.Entry<T>(entity);
             entityEntry.State = EntityState.Modified;
