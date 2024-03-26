@@ -9,5 +9,7 @@ namespace LIbrary.Models
         public int id { get; set; }
         [Required]
         public int name { get; set; }
+        public ICollection<BookCopy> bookCopies { get; set; }
+
     }
 }

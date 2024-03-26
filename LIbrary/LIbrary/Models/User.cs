@@ -12,5 +12,7 @@ namespace LIbrary.Models
         public string userName { get; set; }
         [Required]
         public string password { get; set; }
+        public ICollection<Borrow> borrows { get; set; }
+
     }
 }

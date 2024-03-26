@@ -11,5 +11,9 @@ namespace LIbrary.Models
         public DateOnly dateOfBorrow { get; set; }
         [Required]
         public DateOnly dateOfReturn { get; set; }
+        public int bookCopyId { get; set; }
+        public BookCopy bookCopy { get; set; }
+        public int userId { get; set; }
+        public User user { get; set; }
     }
 }

@@ -19,5 +19,9 @@ namespace LIbrary.Models
         [ForeignKey("author")]
         public int authorId { get; set; }
         public Author author { get; set; }
+        public int genreId { get; set; }
+        public Genre genre { get; set; }
+        public ICollection<BookCopy> bookCopies { get; set; }
+
     }
 }
