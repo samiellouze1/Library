@@ -3,7 +3,7 @@ using LIbrary.Repository.Generic;
 
 namespace LIbrary.Repository
 {
-    public interface IUserRepository : IEntityBaseRepository<User>
+    public interface IReaderRepository : IEntityBaseRepository<Reader>
     {
     }
 }
