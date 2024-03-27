@@ -4,9 +4,9 @@ using LIbrary.Repository.Generic;
 
 namespace LIbrary.Repository
 {
-    public class BorrowRepository : EntityBaseRepository<Borrow>, IBorrowRepository
+    public class BorrowItemRepository : EntityBaseRepository<BorrowItem>, IBorrowItemRepository
     {
-        public BorrowRepository(AppDbContext context) : base(context)
+        public BorrowItemRepository(AppDbContext context) : base(context)
         {
 
         }

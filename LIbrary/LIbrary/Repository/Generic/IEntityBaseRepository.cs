@@ -4,8 +4,8 @@ namespace LIbrary.Repository.Generic
 {
     public interface IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
+        Task<ICollection<T>> GetAllAsync();
+        Task<ICollection<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
         Task<T> GetByIdAsync(string id);
         Task<T> GetByIdAsync(string id, params Expression<Func<T, object>>[] includeProperties);
         Task AddAsync(T entity);

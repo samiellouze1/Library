@@ -3,7 +3,7 @@ using LIbrary.Repository.Generic;
 
 namespace LIbrary.Repository
 {
-    public interface IBorrowRepository : IEntityBaseRepository<Borrow>
+    public interface IBorrowItemRepository : IEntityBaseRepository<BorrowItem>
     {
     }
 }

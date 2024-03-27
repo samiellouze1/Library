@@ -22,7 +22,7 @@ builder.Services.AddScoped<IAvailabilityStatusRepository,AvailabilityStatusRepos
 builder.Services.AddScoped<IBookCopyRepository,BookCopyRepository>();
 builder.Services.AddScoped<IBookCopyStatusRepository,BookCopyStatusRepository>();
 builder.Services.AddScoped<IBookRepository,BookRepository>();
-builder.Services.AddScoped<IBorrowRepository,BorrowRepository>();
+builder.Services.AddScoped<IBorrowItemRepository,BorrowItemRepository>();
 builder.Services.AddScoped<IGenreRepository,GenreRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 #endregion

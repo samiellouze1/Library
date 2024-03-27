@@ -13,7 +13,8 @@ namespace LIbrary.Models
         public virtual AvailabilityStatus availabilityStatus { get; set; }
         public string bookCopyStatusId { get; set; }
         public virtual BookCopyStatus bookCopyStatus { get; set; }
-        public virtual ICollection<Borrow> borrows { get; set; }
+        public virtual ICollection<BorrowItem> borrows { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
 
     }
 }

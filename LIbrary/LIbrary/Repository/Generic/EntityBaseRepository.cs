@@ -28,9 +28,9 @@ namespace LIbrary.Repository.Generic
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
+        public async Task<ICollection<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
 
-        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
+        public async Task<ICollection<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = _context.Set<T>();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));

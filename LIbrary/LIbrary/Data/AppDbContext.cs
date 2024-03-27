@@ -12,7 +12,7 @@ namespace LIbrary.Data
         public DbSet<Book> Book { get; set; }
         public DbSet<BookCopy> BookCopy { get; set; }
         public DbSet<BookCopyStatus> BookCopyStatus { get; set; }
-        public DbSet<Borrow> Borrow { get; set; }
+        public DbSet<BorrowItem> BorrowItem { get; set; }
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Reader> Reader { get; set; }
         public DbSet<Librarian> Librarian { get; set; }
@@ -27,9 +27,9 @@ namespace LIbrary.Data
             builder.Entity<BookCopy>().HasOne(bc=>bc.book).WithMany(b=>b.bookCopies).HasForeignKey(bc=>bc.bookId);
             builder.Entity<BookCopy>().HasOne(bc=>bc.availabilityStatus).WithMany(a=>a.bookCopies).HasForeignKey(bc=>bc.availabilityStatusId);
             builder.Entity<BookCopy>().HasOne(bc=>bc.bookCopyStatus).WithMany(b=>b.bookCopies).HasForeignKey(bc=>bc.bookCopyStatusId);
-            builder.Entity<Borrow>().HasOne(b => b.bookCopy).WithMany(b => b.borrows).HasForeignKey(b => b.bookCopyId);
-            builder.Entity<Borrow>().HasOne(b=>b.librarian).WithMany(u=>u.borrows).HasForeignKey(b=>b.librarianId);
-            builder.Entity<Borrow>().HasOne(b=>b.reader).WithMany(u=>u.borrows).HasForeignKey(b=>b.readerId);
+            builder.Entity<BorrowItem>().HasOne(b => b.bookCopy).WithMany(b => b.borrows).HasForeignKey(b => b.bookCopyId);
+            builder.Entity<BorrowItem>().HasOne(b=>b.librarian).WithMany(u=>u.borrows).HasForeignKey(b=>b.librarianId);
+            builder.Entity<BorrowItem>().HasOne(b=>b.reader).WithMany(u=>u.borrows).HasForeignKey(b=>b.readerId);
 
             base.OnModelCreating(builder);
         }
