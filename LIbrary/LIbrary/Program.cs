@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // With Razor runtime compilation enabled, changes made to Razor views (.cshtml files) are automatically recompiled without requiring a manual build or restart of the application. 
-// builder.Services.AddMvc().AddRazorRuntimeCompilation();
+builder.Services.AddMvc().AddRazorRuntimeCompilation();
 
 builder.Services.AddDbContext<AppDbContext>(option => option.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -77,7 +77,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 // The app.UseStaticFiles() method configures the middleware pipeline to serve static files, such as HTML, CSS, JavaScript, and image files, from the application's wwwroot directory or any other specified directory.
-app.UseStaticFiles();
+//app.UseStaticFiles();
 
 app.UseSession();
 
