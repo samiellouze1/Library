@@ -57,6 +57,7 @@ namespace LIbrary.Controllers
         {
             if (!ModelState.IsValid)
             {
+                Console.WriteLine("-------------------validation error------------------");
                 return View(registervm);
             }
             else
@@ -78,6 +79,7 @@ namespace LIbrary.Controllers
                     {
                         var newUser = new Reader()
                         {
+                            UserName= registervm.Email,
                             Email = registervm.Email
                         };
                         var newUserResponse = await _userManager.CreateAsync(newUser, registervm.Password);
@@ -87,7 +89,7 @@ namespace LIbrary.Controllers
                             var result = await _signInManager.PasswordSignInAsync(newUser, registervm.Password, false, false);
                             if (result.Succeeded)
                             {
-                                return RedirectToAction("Index", "Product");
+                                return RedirectToAction("Index", "Home");
                             }
                             else
                             {
@@ -97,6 +99,7 @@ namespace LIbrary.Controllers
                         }
                         else
                         {
+                            Console.WriteLine(newUserResponse.ToString());
                             return View(registervm);
                         }
                     }
