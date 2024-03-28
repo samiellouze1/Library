@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kuKxXhYnwNlcTeFdiUGWeKHjMNYmHoyIZTk9B4HSgps=",
+  "Hash": "ABFJqkGZHpGyqzjqF1i6WJAiJxqlwGaNQy2gFsAw2ko=",
   "Source": "LIbrary",
   "BasePath": "_content/LIbrary",
   "Mode": "Default",
@@ -585,6 +585,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\slider-bg.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\slider-bg-new.png",
+      "SourceId": "LIbrary",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\",
+      "BasePath": "_content/LIbrary",
+      "RelativePath": "images/slider-bg-new.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\slider-bg-new.png"
     },
     {
       "Identity": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\telephone-white.png",

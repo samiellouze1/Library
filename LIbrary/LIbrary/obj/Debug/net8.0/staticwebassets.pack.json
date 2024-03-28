@@ -113,6 +113,10 @@
       "PackagePath": "staticwebassets\\images\\phone.png"
     },
     {
+      "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\slider-bg-new.png",
+      "PackagePath": "staticwebassets\\images\\slider-bg-new.png"
+    },
+    {
       "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\slider-bg.jpg",
       "PackagePath": "staticwebassets\\images\\slider-bg.jpg"
     },

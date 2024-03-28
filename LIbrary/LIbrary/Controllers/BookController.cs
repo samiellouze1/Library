@@ -34,17 +34,17 @@ namespace LIbrary.Controllers
             ICollection<Book> books = await _bookCatalogueService.GetBooksByReaderIdAsync(Id);
             return View("Books", books);
         }    
-        public async Task<IActionResult> MyBorrowedBooks()
-        {
-            string Id = User.FindFirstValue("Id");
-            ICollection<Book> books = await _bookCatalogueService.GetBorrowedBooksByReaderIdAsync(Id);
-            return View("Books", books);
-        }
-        public async Task<IActionResult> MyReturnedBooks()
-        {
-            string Id = User.FindFirstValue("Id");
-            ICollection<Book> books = await _bookCatalogueService.GetReturnedBooksByReaderIdAsync(Id);
-            return View("Books", books);
-        }
+        //public async Task<IActionResult> MyBorrowedBooks()
+        //{
+        //    string Id = User.FindFirstValue("Id");
+        //    ICollection<Book> books = await _bookCatalogueService.GetBorrowedBooksByReaderIdAsync(Id);
+        //    return View("Books", books);
+        //}
+        //public async Task<IActionResult> MyReturnedBooks()
+        //{
+        //    string Id = User.FindFirstValue("Id");
+        //    ICollection<Book> books = await _bookCatalogueService.GetReturnedBooksByReaderIdAsync(Id);
+        //    return View("Books", books);
+        //}
     }
 }

@@ -1,6 +1,6 @@
 ﻿using LIbrary.Data;
 using LIbrary.Models;
-using LIbrary.ViewModels;
+using LIbrary.ViewModels.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

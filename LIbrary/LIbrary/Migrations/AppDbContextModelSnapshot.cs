@@ -136,17 +136,36 @@ namespace LIbrary.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("bookCopyId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateOnly>("dateOfBorrow")
                         .HasColumnType("date");
 
                     b.Property<DateOnly>("dateOfReturn")
                         .HasColumnType("date");
 
-                    b.Property<string>("userId")
+                    b.Property<string>("readerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("readerId");
+
+                    b.ToTable("Borrow");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.BorrowItem", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("bookCopyId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("borrowId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("librarianId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -154,9 +173,11 @@ namespace LIbrary.Migrations
 
                     b.HasIndex("bookCopyId");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("borrowId");
 
-                    b.ToTable("Borrow");
+                    b.HasIndex("librarianId");
+
+                    b.ToTable("BorrowItem");
                 });
 
             modelBuilder.Entity("LIbrary.Models.Genre", b =>
@@ -171,71 +192,6 @@ namespace LIbrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genre");
-                });
-
-            modelBuilder.Entity("LIbrary.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -288,6 +244,80 @@ namespace LIbrary.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -371,6 +401,20 @@ namespace LIbrary.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("LIbrary.Models.Librarian", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("Librarian");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.Reader", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("Reader");
+                });
+
             modelBuilder.Entity("LIbrary.Models.Book", b =>
                 {
                     b.HasOne("LIbrary.Models.Author", "author")
@@ -419,21 +463,39 @@ namespace LIbrary.Migrations
 
             modelBuilder.Entity("LIbrary.Models.Borrow", b =>
                 {
-                    b.HasOne("LIbrary.Models.BookCopy", "bookCopy")
+                    b.HasOne("LIbrary.Models.Reader", "reader")
                         .WithMany("borrows")
+                        .HasForeignKey("readerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("reader");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.BorrowItem", b =>
+                {
+                    b.HasOne("LIbrary.Models.BookCopy", "bookCopy")
+                        .WithMany("borrowItems")
                         .HasForeignKey("bookCopyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LIbrary.Models.User", "user")
-                        .WithMany("borrows")
-                        .HasForeignKey("userId")
+                    b.HasOne("LIbrary.Models.Borrow", "borrow")
+                        .WithMany("borrowItems")
+                        .HasForeignKey("borrowId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LIbrary.Models.Librarian", "librarian")
+                        .WithMany("borrowItems")
+                        .HasForeignKey("librarianId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("bookCopy");
 
-                    b.Navigation("user");
+                    b.Navigation("borrow");
+
+                    b.Navigation("librarian");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -447,7 +509,7 @@ namespace LIbrary.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LIbrary.Models.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -456,7 +518,7 @@ namespace LIbrary.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LIbrary.Models.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -471,7 +533,7 @@ namespace LIbrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LIbrary.Models.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -480,7 +542,7 @@ namespace LIbrary.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("LIbrary.Models.User", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -504,7 +566,7 @@ namespace LIbrary.Migrations
 
             modelBuilder.Entity("LIbrary.Models.BookCopy", b =>
                 {
-                    b.Navigation("borrows");
+                    b.Navigation("borrowItems");
                 });
 
             modelBuilder.Entity("LIbrary.Models.BookCopyStatus", b =>
@@ -512,12 +574,22 @@ namespace LIbrary.Migrations
                     b.Navigation("bookCopies");
                 });
 
+            modelBuilder.Entity("LIbrary.Models.Borrow", b =>
+                {
+                    b.Navigation("borrowItems");
+                });
+
             modelBuilder.Entity("LIbrary.Models.Genre", b =>
                 {
                     b.Navigation("books");
                 });
 
-            modelBuilder.Entity("LIbrary.Models.User", b =>
+            modelBuilder.Entity("LIbrary.Models.Librarian", b =>
+                {
+                    b.Navigation("borrowItems");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.Reader", b =>
                 {
                     b.Navigation("borrows");
                 });

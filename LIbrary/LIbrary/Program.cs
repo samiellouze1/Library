@@ -77,7 +77,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 // The app.UseStaticFiles() method configures the middleware pipeline to serve static files, such as HTML, CSS, JavaScript, and image files, from the application's wwwroot directory or any other specified directory.
-//app.UseStaticFiles();
+app.UseStaticFiles();
 
 app.UseSession();
 
