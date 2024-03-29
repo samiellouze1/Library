@@ -1,7 +1,7 @@
 using LIbrary.Data;
-using LIbrary.Models;
-using LIbrary.Repository;
-using LIbrary.Services;
+using LIbrary.Repository.Specific;
+using LIbrary.Services.BookCatalogue;
+using LIbrary.Services.ShoppingCart;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,34 +14,42 @@ builder.Services.AddControllersWithViews();
 // With Razor runtime compilation enabled, changes made to Razor views (.cshtml files) are automatically recompiled without requiring a manual build or restart of the application. 
 builder.Services.AddMvc().AddRazorRuntimeCompilation();
 
+// This method is an extension method provided by ASP.NET Core. It registers the IMemoryCache interface and its implementation with the dependency injection container, making it available for injection into other components of your application.
+builder.Services.AddMemoryCache();
+
+#region DataAccess
 builder.Services.AddDbContext<AppDbContext>(option => option.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+#endregion
 
 #region Repository
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IAvailabilityStatusRepository,AvailabilityStatusRepository>();
+builder.Services.AddScoped<IBookRepository,BookRepository>();
 builder.Services.AddScoped<IBookCopyRepository,BookCopyRepository>();
 builder.Services.AddScoped<IBookCopyStatusRepository,BookCopyStatusRepository>();
-builder.Services.AddScoped<IBookRepository,BookRepository>();
+builder.Services.AddScoped<IBorrowRepository,BorrowRepository>();
 builder.Services.AddScoped<IBorrowItemRepository,BorrowItemRepository>();
 builder.Services.AddScoped<IGenreRepository,GenreRepository>();
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
+builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
+builder.Services.AddScoped<IShoppingCartItemRepository, ShoppingCartItemRepository>();
 #endregion
 
 #region Service
-// builder.Services.AddScoped<ICheckOutInService, CheckOutInService>();
+builder.Services.AddScoped<IBookCatalogueService, BookCatalogueService>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 #endregion
 
-
-
-
-
+#region Authentication
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
-builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 });
+#endregion
+
+#region Authorization
 // add role reader
 builder.Services.AddAuthorization(options =>
 {
@@ -64,9 +72,12 @@ builder.Services.AddAuthorization(options =>
         });
 
 });
+#endregion
 
+#region Claims
 // Claims are a way to retrieve current logged in (in session) user credentials like id or username
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, ApplicationUserClaimsPrincipalFactory>();
+#endregion
 
 var app = builder.Build();
 

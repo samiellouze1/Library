@@ -17,6 +17,7 @@ namespace LIbrary.Data
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Reader> Reader { get; set; }
         public DbSet<Librarian> Librarian { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {            
         }

@@ -1,6 +1,6 @@
 ﻿using LIbrary.Models;
-using LIbrary.Repository;
-namespace LIbrary.Services
+using LIbrary.Repository.Specific;
+namespace LIbrary.Services.BookCatalogue
 {
     public class BookCatalogueService : IBookCatalogueService
     {
@@ -17,7 +17,7 @@ namespace LIbrary.Services
                 ICollection<Book> books = await _bookRepository.GetAllAsync();
                 return books;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -30,7 +30,7 @@ namespace LIbrary.Services
                 Book book = await _bookRepository.GetByIdAsync(id);
                 return book;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return null;

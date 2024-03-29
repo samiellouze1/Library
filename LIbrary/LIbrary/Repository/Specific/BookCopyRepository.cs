@@ -2,7 +2,7 @@
 using LIbrary.Models;
 using LIbrary.Repository.Generic;
 
-namespace LIbrary.Repository
+namespace LIbrary.Repository.Specific
 {
     public class BookCopyRepository : EntityBaseRepository<BookCopy>, IBookCopyRepository
     {

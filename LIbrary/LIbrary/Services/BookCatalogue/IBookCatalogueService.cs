@@ -1,6 +1,6 @@
 ﻿using LIbrary.Models;
 
-namespace LIbrary.Services
+namespace LIbrary.Services.BookCatalogue
 {
     public interface IBookCatalogueService
     {
