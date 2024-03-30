@@ -24,7 +24,7 @@ namespace LIbrary.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
+            //relationships
             builder.Entity<Book>().HasOne(b => b.author).WithMany(a => a.books).HasForeignKey(b => b.authorId);
             builder.Entity<Book>().HasOne(b=>b.genre).WithMany(g=>g.books).HasForeignKey(b=>b.genreId);
             builder.Entity<BookCopy>().HasOne(bc=>bc.book).WithMany(b=>b.bookCopies).HasForeignKey(bc=>bc.bookId);

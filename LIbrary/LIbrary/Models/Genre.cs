@@ -10,8 +10,8 @@ namespace LIbrary.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         [Required]
-        public string name { get; set; }
-        public virtual ICollection<Book> books { get; set; }
+        public string? name { get; set; }
+        public virtual ICollection<Book> books { get; set; } = new List<Book>();
 
     }
 }

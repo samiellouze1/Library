@@ -9,11 +9,11 @@ namespace LIbrary.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
-        public string bookCopyId { get; set; }
-        public virtual  BookCopy bookCopy { get; set; }
-        public string borrowId { get; set; }
-        public virtual Borrow borrow { get; set; }
-        public string librarianId { get; set; }
-        public virtual Librarian librarian { get; set; }
+        public string? bookCopyId { get; set; }
+        public virtual BookCopy bookCopy { get; set; } = new BookCopy();
+        public string? borrowId { get; set; }
+        public virtual Borrow borrow { get; set; } = new Borrow();
+        public string? librarianId { get; set; }
+        public virtual Librarian librarian { get; set; } = new Librarian();
     }
 }

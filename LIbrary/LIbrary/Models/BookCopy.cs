@@ -9,13 +9,13 @@ namespace LIbrary.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
-        public string bookId { get; set; }
-        public virtual Book book { get; set; }
-        public string availabilityStatusId { get; set; }
-        public virtual AvailabilityStatus availabilityStatus { get; set; }
-        public string bookCopyStatusId { get; set; }
-        public virtual BookCopyStatus bookCopyStatus { get; set; }
-        public virtual ICollection<BorrowItem> borrowItems { get; set; }
+        public string? bookId { get; set; }
+        public virtual Book book { get; set; } = new Book();
+        public string? availabilityStatusId { get; set; }
+        public virtual AvailabilityStatus availabilityStatus { get; set; } = new AvailabilityStatus();
+        public string? bookCopyStatusId { get; set; }
+        public virtual BookCopyStatus bookCopyStatus { get; set; } = new BookCopyStatus();
+        public virtual ICollection<BorrowItem> borrowItems { get; set; } = new List<BorrowItem>();
 
     }
 }

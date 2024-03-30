@@ -11,6 +11,6 @@ namespace LIbrary.Models
         public virtual string Id { get; set; }
         [Required]
         public string name { get; set; } = "Available";
-        public virtual ICollection<BookCopy> bookCopies { get; set; }
+        public virtual ICollection<BookCopy> bookCopies { get; set; } = new List<BookCopy>();
     }
 }

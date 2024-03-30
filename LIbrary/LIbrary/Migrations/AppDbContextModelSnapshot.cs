@@ -28,6 +28,7 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.Author", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("name")
@@ -42,6 +43,7 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.AvailabilityStatus", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("name")
@@ -56,29 +58,28 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.Book", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("authorId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("coverUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("dateOfCreation")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("genreId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("price")
+                        .HasColumnType("int");
+
                     b.Property<string>("title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -93,18 +94,16 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.BookCopy", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("availabilityStatusId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("bookCopyStatusId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("bookId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -121,10 +120,12 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.BookCopyStatus", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("name")
-                        .HasColumnType("int");
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -134,6 +135,7 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.Borrow", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateOnly>("dateOfBorrow")
@@ -155,18 +157,16 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.BorrowItem", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("bookCopyId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("borrowId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("librarianId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -183,6 +183,7 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.Genre", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("name")
@@ -197,19 +198,20 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.ShoppingCartItem", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BookCopyId")
-                        .IsRequired()
+                    b.Property<string>("bookCopyId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ShoppingCartId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("readerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookCopyId");
+                    b.HasIndex("bookCopyId");
+
+                    b.HasIndex("readerId");
 
                     b.ToTable("ShoppingCartItem");
                 });
@@ -439,15 +441,11 @@ namespace LIbrary.Migrations
                 {
                     b.HasOne("LIbrary.Models.Author", "author")
                         .WithMany("books")
-                        .HasForeignKey("authorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("authorId");
 
                     b.HasOne("LIbrary.Models.Genre", "genre")
                         .WithMany("books")
-                        .HasForeignKey("genreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("genreId");
 
                     b.Navigation("author");
 
@@ -458,21 +456,15 @@ namespace LIbrary.Migrations
                 {
                     b.HasOne("LIbrary.Models.AvailabilityStatus", "availabilityStatus")
                         .WithMany("bookCopies")
-                        .HasForeignKey("availabilityStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("availabilityStatusId");
 
                     b.HasOne("LIbrary.Models.BookCopyStatus", "bookCopyStatus")
                         .WithMany("bookCopies")
-                        .HasForeignKey("bookCopyStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("bookCopyStatusId");
 
                     b.HasOne("LIbrary.Models.Book", "book")
                         .WithMany("bookCopies")
-                        .HasForeignKey("bookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("bookId");
 
                     b.Navigation("availabilityStatus");
 
@@ -495,21 +487,16 @@ namespace LIbrary.Migrations
                 {
                     b.HasOne("LIbrary.Models.BookCopy", "bookCopy")
                         .WithMany("borrowItems")
-                        .HasForeignKey("bookCopyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("bookCopyId");
 
                     b.HasOne("LIbrary.Models.Borrow", "borrow")
                         .WithMany("borrowItems")
-                        .HasForeignKey("borrowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("borrowId");
 
                     b.HasOne("LIbrary.Models.Librarian", "librarian")
                         .WithMany("borrowItems")
                         .HasForeignKey("librarianId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("bookCopy");
 
@@ -522,11 +509,15 @@ namespace LIbrary.Migrations
                 {
                     b.HasOne("LIbrary.Models.BookCopy", "BookCopy")
                         .WithMany()
-                        .HasForeignKey("BookCopyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("bookCopyId");
+
+                    b.HasOne("LIbrary.Models.Reader", "reader")
+                        .WithMany()
+                        .HasForeignKey("readerId");
 
                     b.Navigation("BookCopy");
+
+                    b.Navigation("reader");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -5,6 +5,6 @@ namespace LIbrary.Models
 {
     public class Librarian : IdentityUser, IEntityBase
     {
-        public virtual ICollection<BorrowItem> borrowItems { get; set; }
+        public virtual ICollection<BorrowItem> borrowItems { get; set; } = new List<BorrowItem>();
     }
 }

@@ -9,9 +9,9 @@ namespace LIbrary.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
-        public string bookCopyId { get; set; }
-        public virtual BookCopy BookCopy { get; set; }
-        public string readerId { get; set; }
-        public virtual Reader reader { get; set; }
+        public string? bookCopyId { get; set; }
+        public virtual BookCopy bookCopy { get; set; } = new BookCopy();
+        public string? readerId { get; set; }
+        public virtual Reader reader { get; set; } = new Reader();
     }
 }
