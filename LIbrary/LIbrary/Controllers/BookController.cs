@@ -20,15 +20,15 @@ namespace LIbrary.Controllers
             // i need to take care of it if it returns a null
             return View(book);
         }
-        public async Task<IActionResult> AllBooks()
+        public async Task<IActionResult> Index()
         {
-            ICollection<Book> books = await _bookCatalogueService.GetAllBooksAsync();
+            //ICollection<Book> books = await _bookCatalogueService.GetAllBooksAsync();
             // i need to develop some decoupling
             // i need to take care of it if it returns a null
-            return View("Books",books) ;
+            return View() ;
         }
         //[Authorize("Reader")]
-        public async Task<IActionResult> MyBooks()
+        public async Task<IActionResult> BorrowedBooks()
         {
             string Id = User.FindFirstValue("Id");
             ICollection<Book> books = await _bookCatalogueService.GetBooksByReaderIdAsync(Id);

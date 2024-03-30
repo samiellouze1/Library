@@ -12,7 +12,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>HandTime</title>
+    <title>Library</title>
 
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/css/bootstrap.css")" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
                     <a class="navbar-brand" href="index.html">
                         <span>
-                            HandTime
+                            Library
                         </span>
                     </a>
 
@@ -39,26 +39,23 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav  ">
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" asp-controller="Home"asp-action="Index">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="about.html"> About</a>
+                                <a class="nav-link" asp-controller="Book" asp-action="Index"> Available Books</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="product.html">Products</a>
+                                <a class="nav-link" asp-controller="Book" asp-action="BorrowedBooks">My Borrowed Books</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="testimonial.html">Testimonial</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contact.html">Contact Us</a>
+                                <a class="nav-link" asp-controller="Profile" asp-action="Readers">Readers</a>
                             </li>
                         </ul>
                         <div class="user_optio_box">
-                            <a href="">
+                            <a asp-action="Profile" asp-action="Index">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </a>
-                            <a href="">
+                            <a asp-controller="Cart" asp-action="Index">
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             </a>
                         </div>

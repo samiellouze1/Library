@@ -8,15 +8,11 @@ namespace LIbrary.Models
     {
         [Key]
         public string Id { get; set; }
-        [Required]
         public string title { get; set; }
-        [Required]
         public string description { get; set; }
-        [Required]  
         public DateTime dateOfCreation { get; set; }
-        [Required]
         public string coverUrl { get; set; }
-        [ForeignKey("author")]
+        public int price { get; set; }
         public string authorId { get; set; }
         public virtual Author author { get; set; }
         public string genreId { get; set; }

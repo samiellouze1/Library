@@ -1,0 +1,56 @@
+﻿@model List<Book>
+@{
+    ViewData["Title"] = "Books Page";
+}
+
+
+<section class="product_section ">
+    <div class="container">
+        <div class="product_heading">
+            <h2>
+                Top Sale Watches
+            </h2>
+        </div>
+        <div class="product_container">
+
+                @foreach (var item in Model)
+                {
+                <div class="box">
+                    <div class="box-content">
+
+                        <div class="img-box">
+                            <img src=@item.coverUrl alt="">
+                        </div>
+                        <div class="detail-box">
+                            <div class="text">
+                                <h6>
+                                    @item.title
+                                </h6>
+                                <h5>
+                                    <span>$</span> @item.price
+                                </h5>
+                            </div>
+                            <div class="like">
+                                <h6>
+                                    Like
+                                </h6>
+                                <div class="star_container">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-box">
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id=@item.Id>
+                            Add To Cart
+                        </a>
+                    </div>
+                </div>
+                }
+        </div>
+    </div>
+</section>

@@ -1,5 +1,4 @@
-﻿using LIbrary.ViewModels.Reader;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -7,7 +6,7 @@ namespace LIbrary.Controllers
 {
     public class ProfileController: Controller
     {
-        public async Task<IActionResult> MyProfile()
+        public async Task<IActionResult> Index()
         {
             // you need to implement it all
             string Id = User.FindFirstValue("Id");
@@ -15,16 +14,10 @@ namespace LIbrary.Controllers
             return View();
         }
         //[Authorize("Librarian")]
-        public async Task<IActionResult> AllReaders()
+        public async Task<IActionResult> Readers()
         {
             // you need to implement it all
             return View();
-        }
-        public async Task<IActionResult> ReaderMiniProfilePartial()
-        {
-            // need to implement some logic
-            ReaderReadVM readerReadVM = new ReaderReadVM();
-            return ViewComponent("ReaderMiniProfile", readerReadVM);
         }
     }
 }

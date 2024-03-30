@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ABFJqkGZHpGyqzjqF1i6WJAiJxqlwGaNQy2gFsAw2ko=",
+  "Hash": "gpddOYtnaaYsFqFMxWxiXJLOQH35wkMpobuW5AcLCJE=",
   "Source": "LIbrary",
   "BasePath": "_content/LIbrary",
   "Mode": "Default",
@@ -319,6 +319,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\about-img.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\bg-slider-new.jpg",
+      "SourceId": "LIbrary",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\",
+      "BasePath": "_content/LIbrary",
+      "RelativePath": "images/bg-slider-new.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\bg-slider-new.jpg"
     },
     {
       "Identity": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\client.jpg",
