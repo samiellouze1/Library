@@ -1,14 +1,16 @@
 ﻿using LIbrary.Repository.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LIbrary.Models
 {
     public class BookCopyStatus:IEntityBase
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         [Required]
-        public int name { get; set; }
+        public string name { get; set; }
         public  virtual ICollection<BookCopy> bookCopies { get; set; }
 
     }

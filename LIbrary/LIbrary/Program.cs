@@ -103,4 +103,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
+AppDbInitializer.Seed(app);
+
 app.Run();

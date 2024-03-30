@@ -1,11 +1,13 @@
 ﻿using LIbrary.Repository.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LIbrary.Models
 {
     public class Borrow:IEntityBase
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         public DateOnly dateOfBorrow { get; set; }
         public DateOnly dateOfReturn { get; set; }

@@ -7,6 +7,7 @@ namespace LIbrary.Models
     public class Book:IEntityBase
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
