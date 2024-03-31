@@ -1,6 +1,7 @@
 using LIbrary.Data;
 using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
+using LIbrary.Services.ReturnBook;
 using LIbrary.Services.ShoppingCart;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +24,6 @@ builder.Services.AddDbContext<AppDbContext>(option => option.UseLazyLoadingProxi
 
 #region Repository
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-builder.Services.AddScoped<IAvailabilityStatusRepository,AvailabilityStatusRepository>();
 builder.Services.AddScoped<IBookRepository,BookRepository>();
 builder.Services.AddScoped<IBookCopyRepository,BookCopyRepository>();
 builder.Services.AddScoped<IBookCopyStatusRepository,BookCopyStatusRepository>();
@@ -39,6 +39,7 @@ builder.Services.AddScoped<IShoppingCartItemRepository, ShoppingCartItemReposito
 #region Service
 builder.Services.AddScoped<IBookCatalogueService, BookCatalogueService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddScoped<IReturnBookService, ReturnBookService>();
 #endregion
 
 #region Authentication

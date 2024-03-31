@@ -20,20 +20,47 @@ namespace LIbrary.Controllers
             // i need to take care of it if it returns a null
             return View(book);
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             ICollection<Book> books = await _bookCatalogueService.GetAllBooksAsync();
-            // i need to develop some decoupling
-            // i need to take care of it if it returns a null
-            return View(books.ToList()) ;
+            List<Book> booksList=books.ToList();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                booksList = booksList.Where(n => n.title.Contains(searchString)).ToList();
+            }
+                // i need to develop some decoupling
+                // i need to take care of it if it returns a null
+                return View(booksList) ;
         }
         //[Authorize("Reader")]
         public async Task<IActionResult> CurrentlyBorrowedBooks()
         {
-            string Id = User.FindFirstValue("Id");
-            ICollection<Book> books = await _bookCatalogueService.GetCurrentlyBorrowedBooksByReaderIdAsync(Id);
+            string Id;
+            try
+            {
+                Id = User.FindFirstValue("Id");
+            }
+            catch (Exception ex) 
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            ICollection<Book> books = await _bookCatalogueService.GetBorrowedBooksByReaderIdAsync(Id);
             return View("Index", books);
         }    
+        public async Task<IActionResult> ReturnedBooks()
+        {
+            string Id;
+            try
+            {
+                Id = User.FindFirstValue("Id");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            ICollection<Book> books = await _bookCatalogueService.GetReturnedBooksByReaderIdAsync(Id);
+            return View("Index", books);
+        }
         //public async Task<IActionResult> MyBorrowedBooks()
         //{
         //    string Id = User.FindFirstValue("Id");

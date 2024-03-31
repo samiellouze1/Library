@@ -11,6 +11,22 @@
                 Books
             </h2>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form_container">
+                    <form asp-action="Index" asp-controller="Book">
+                        <div>
+                            <input name="searchString" type="search" placeholder="Search ..." />
+                        </div>
+                        <div class="btn_box">
+                            <button type="submit">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="product_container">
 
                 @foreach (var item in Model)

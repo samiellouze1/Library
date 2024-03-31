@@ -27,6 +27,11 @@ namespace LIbrary.Services.BookCatalogue
             }
         }
 
+        public Task<Book> GetAvailableBooksByIdAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Book> GetBookByIdAsync(string id)
         {
             try
@@ -41,17 +46,39 @@ namespace LIbrary.Services.BookCatalogue
             }
         }
 
-        public Task<List<Book>> GetBooksByReaderIdAsync(string id)
+        public async Task<List<Book>> GetBooksByReaderIdAsync(string id)
         {
-            throw new NotImplementedException();
+            ICollection<BorrowItem> borrowItems = await _borrowItemRepository.GetAllAsync(bi => bi.borrow.reader, bi => bi.bookCopy.book, bi => bi.borrowItemStatus);
+            borrowItems = borrowItems
+                .Where(bi => bi.borrow.readerId == id)
+                .ToList();
+            List<Book> books= borrowItems
+                .Select(bi => bi.bookCopy.book)
+                .ToList();
+            return books;
         }
 
-        public async Task<List<Book>> GetCurrentlyBorrowedBooksByReaderIdAsync(string id)
+        public async Task<List<Book>> GetBorrowedBooksByReaderIdAsync(string id)
         {
             ICollection<BorrowItem> borrowItems = await _borrowItemRepository.GetAllAsync(bi=>bi.borrow.reader,bi=>bi.bookCopy.book,bi=>bi.borrowItemStatus);
-            List<BorrowItem> borrowedBorrowItems = borrowItems.Where(bi => bi.borrowItemStatus.name == "Borrowed").ToList();
+            List<BorrowItem> borrowedBorrowItems = borrowItems
+                .Where(bi=>bi.borrow.readerId==id)
+                .Where(bi => bi.borrowItemStatus.name == "Borrowed")
+                .ToList();
             List<Book> borrowedBooks = borrowedBorrowItems.Select(bi=>bi.bookCopy.book).ToList();
             return borrowedBooks;
         }
+
+        public async Task<List<Book>> GetReturnedBooksByReaderIdAsync(string id)
+        {
+            ICollection<BorrowItem> borrowItems = await _borrowItemRepository.GetAllAsync(bi => bi.borrow.reader, bi => bi.bookCopy.book, bi => bi.borrowItemStatus);
+            List<BorrowItem> borrowedBorrowItems = borrowItems
+                .Where(bi => bi.borrow.readerId == id)
+                .Where(bi => bi.borrowItemStatus.name == "Returned")
+                .ToList();
+            List<Book> borrowedBooks = borrowedBorrowItems.Select(bi => bi.bookCopy.book).ToList();
+            return borrowedBooks;
+        }
+
     }
 }

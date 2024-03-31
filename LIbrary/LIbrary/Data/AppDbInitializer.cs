@@ -51,25 +51,14 @@ namespace LIbrary.Data
                 }
                 #endregion
 
-                #region AvailabilityStatus
-                if (!context.AvailabilityStatus.Any())
-                {
-                    context.AvailabilityStatus.AddRange(new List<AvailabilityStatus>()
-                    {
-                        new AvailabilityStatus(){Id="1",name="Available"},
-                        new AvailabilityStatus(){Id = "2", name="UnAvailable"}
-                    });
-                    context.SaveChanges ();
-                }
-                #endregion
-
                 #region BookCopyStatus
                 if (!context.BookCopyStatus.Any())
                 {
                     context.BookCopyStatus.AddRange(new List<BookCopyStatus>()
                     {
                         new BookCopyStatus(){Id = "1", name="Available"},
-                        new BookCopyStatus(){Id = "2", name="Unavailable"}
+                        new BookCopyStatus(){Id = "2", name="Unavailable"},
+                        new BookCopyStatus(){Id = "3", name="Return Requested"}
                     });
                     context.SaveChanges () ;
                 }
@@ -113,7 +102,20 @@ namespace LIbrary.Data
                         for (int j=0;j<10;j++)
                         {
                             k++;
-                            bookCopies.Add(new BookCopy() { Id = k.ToString(),book=context.Book.FirstOrDefault(b=>b.Id==i.ToString()), availabilityStatus=context.AvailabilityStatus.FirstOrDefault(a=>a.Id=="1"), bookCopyStatus = context.BookCopyStatus.FirstOrDefault(bc=>bc.Id=="1") }) ;
+                            BookCopyStatus bookCopyStatus = new BookCopyStatus();
+                            switch(k)
+                            {
+                                case 1:
+                                    bookCopyStatus = context.BookCopyStatus.FirstOrDefault(bc => bc.Id == "2");
+                                    break;
+                                case 11:
+                                    bookCopyStatus = context.BookCopyStatus.FirstOrDefault(bc => bc.Id == "3");
+                                    break;
+                                default:
+                                    bookCopyStatus = context.BookCopyStatus.FirstOrDefault(bc => bc.Id == "1");
+                                    break;
+                            }
+                            bookCopies.Add(new BookCopy() { Id = k.ToString(),book=context.Book.FirstOrDefault(b=>b.Id==i.ToString()), bookCopyStatus =bookCopyStatus }) ;
                         }
                     }
                     context.BookCopy.AddRange(bookCopies);
@@ -160,7 +162,7 @@ namespace LIbrary.Data
                         // Assign objects retrieved from context to navigation properties
                         new BorrowItem { Id = "1", borrow = borrow, bookCopy = bookCopy1 ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="1")},
                         new BorrowItem { Id = "2", borrow = borrow, bookCopy = bookCopy11 ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="1")},
-                        new BorrowItem { Id = "3", borrow = borrow, bookCopy = bookCopy20, librarian = librarian ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="2")}
+                        new BorrowItem { Id = "3", borrow = borrow, bookCopy = bookCopy20,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="2"),librarian=librarian}
                     });
                     context.SaveChanges();
                 }

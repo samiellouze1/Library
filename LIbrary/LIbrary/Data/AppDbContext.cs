@@ -8,7 +8,6 @@ namespace LIbrary.Data
     public class AppDbContext: IdentityDbContext<IdentityUser>
     {
         public DbSet<Author> Author { get; set; }
-        public DbSet<AvailabilityStatus> AvailabilityStatus { get; set; }
         public DbSet<Book> Book { get; set; }
         public DbSet<BookCopy> BookCopy { get; set; }
         public DbSet<BookCopyStatus> BookCopyStatus { get; set; }
@@ -29,7 +28,6 @@ namespace LIbrary.Data
             builder.Entity<Book>().HasOne(b => b.author).WithMany(a => a.books).HasForeignKey(b => b.authorId);
             builder.Entity<Book>().HasOne(b=>b.genre).WithMany(g=>g.books).HasForeignKey(b=>b.genreId);
             builder.Entity<BookCopy>().HasOne(bc=>bc.book).WithMany(b=>b.bookCopies).HasForeignKey(bc=>bc.bookId);
-            builder.Entity<BookCopy>().HasOne(bc=>bc.availabilityStatus).WithMany(a=>a.bookCopies).HasForeignKey(bc=>bc.availabilityStatusId);
             builder.Entity<BookCopy>().HasOne(bc=>bc.bookCopyStatus).WithMany(b=>b.bookCopies).HasForeignKey(bc=>bc.bookCopyStatusId);
             builder.Entity<BorrowItem>().HasOne(b => b.bookCopy).WithMany(b => b.borrowItems).HasForeignKey(b => b.bookCopyId);
             builder.Entity<BorrowItem>().HasOne(b => b.borrow).WithMany(u => u.borrowItems).HasForeignKey(b => b.borrowId);
