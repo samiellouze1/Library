@@ -583,7 +583,8 @@ a:focus {
 }
 
 .product_section .product_container .box .box-content .img-box img {
-  height: 175px;
+  height: auto;
+  width: 200px;
 }
 
 .product_section .product_container .box .box-content .detail-box {

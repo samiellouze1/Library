@@ -15,5 +15,7 @@ namespace LIbrary.Models
         public virtual Borrow borrow { get; set; } = new Borrow();
         public string? librarianId { get; set; }
         public virtual Librarian librarian { get; set; } = new Librarian();
+        public string? borrowItemStatusId { get; set; }
+        public virtual BorrowItemStatus borrowItemStatus { get; set; }= new BorrowItemStatus();
     }
 }

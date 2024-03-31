@@ -18,6 +18,7 @@ namespace LIbrary.Data
         public DbSet<Reader> Reader { get; set; }
         public DbSet<Librarian> Librarian { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
+        public DbSet<BorrowItemStatus> BorrowItemStatus { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {            
         }
@@ -34,6 +35,7 @@ namespace LIbrary.Data
             builder.Entity<BorrowItem>().HasOne(b => b.borrow).WithMany(u => u.borrowItems).HasForeignKey(b => b.borrowId);
             builder.Entity<Borrow>().HasOne(b => b.reader).WithMany(r => r.borrows).HasForeignKey(b =>b.readerId).OnDelete(DeleteBehavior.SetNull);
             builder.Entity<BorrowItem>().HasOne(bi => bi.librarian).WithMany(l => l.borrowItems).HasForeignKey(bi => bi.librarianId).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<BorrowItem>().HasOne(bi => bi.borrowItemStatus).WithMany(b => b.borrowItems).HasForeignKey(bi => bi.borrowItemStatusId);
         }
     }
 }

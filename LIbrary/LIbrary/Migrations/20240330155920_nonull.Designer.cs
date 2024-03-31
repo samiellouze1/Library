@@ -4,6 +4,7 @@ using LIbrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LIbrary.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240330155920_nonull")]
+    partial class nonull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,9 +169,6 @@ namespace LIbrary.Migrations
                     b.Property<string>("borrowId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("borrowItemStatusId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("librarianId")
                         .HasColumnType("nvarchar(450)");
 
@@ -178,25 +178,9 @@ namespace LIbrary.Migrations
 
                     b.HasIndex("borrowId");
 
-                    b.HasIndex("borrowItemStatusId");
-
                     b.HasIndex("librarianId");
 
                     b.ToTable("BorrowItem");
-                });
-
-            modelBuilder.Entity("LIbrary.Models.BorrowItemStatus", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BorrowItemStatus");
                 });
 
             modelBuilder.Entity("LIbrary.Models.Genre", b =>
@@ -512,10 +496,6 @@ namespace LIbrary.Migrations
                         .WithMany("borrowItems")
                         .HasForeignKey("borrowId");
 
-                    b.HasOne("LIbrary.Models.BorrowItemStatus", "borrowItemStatus")
-                        .WithMany("borrowItems")
-                        .HasForeignKey("borrowItemStatusId");
-
                     b.HasOne("LIbrary.Models.Librarian", "librarian")
                         .WithMany("borrowItems")
                         .HasForeignKey("librarianId")
@@ -525,14 +505,12 @@ namespace LIbrary.Migrations
 
                     b.Navigation("borrow");
 
-                    b.Navigation("borrowItemStatus");
-
                     b.Navigation("librarian");
                 });
 
             modelBuilder.Entity("LIbrary.Models.ShoppingCartItem", b =>
                 {
-                    b.HasOne("LIbrary.Models.BookCopy", "bookCopy")
+                    b.HasOne("LIbrary.Models.BookCopy", "BookCopy")
                         .WithMany()
                         .HasForeignKey("bookCopyId");
 
@@ -540,7 +518,7 @@ namespace LIbrary.Migrations
                         .WithMany()
                         .HasForeignKey("readerId");
 
-                    b.Navigation("bookCopy");
+                    b.Navigation("BookCopy");
 
                     b.Navigation("reader");
                 });
@@ -622,11 +600,6 @@ namespace LIbrary.Migrations
                 });
 
             modelBuilder.Entity("LIbrary.Models.Borrow", b =>
-                {
-                    b.Navigation("borrowItems");
-                });
-
-            modelBuilder.Entity("LIbrary.Models.BorrowItemStatus", b =>
                 {
                     b.Navigation("borrowItems");
                 });

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="product_heading">
             <h2>
-                Top Sale Watches
+                Books
             </h2>
         </div>
         <div class="product_container">
@@ -19,12 +19,12 @@
                     <div class="box-content">
 
                         <div class="img-box">
-                            <img src=@item.coverUrl alt="">
+                            <img src="@item.coverUrl" alt="">
                         </div>
                         <div class="detail-box">
                             <div class="text">
                                 <h6>
-                                    @item.title
+                                    @item.author.name
                                 </h6>
                                 <h5>
                                     <span>$</span> @item.price
@@ -32,7 +32,7 @@
                             </div>
                             <div class="like">
                                 <h6>
-                                    Like
+                                    @item.title
                                 </h6>
                                 <div class="star_container">
                                     <i class="fa fa-star" aria-hidden="true"></i>
