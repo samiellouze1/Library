@@ -78,6 +78,7 @@ namespace LIbrary.Data
                     string cover9 = "https://i.harperapps.com/hcanz/covers/9780008433949/y648.jpg";
                     context.Book.AddRange(new List<Book>()
                     {
+                        //lezem tzid rating
                         new Book(){ Id="1",coverUrl=cover1,title = "Foundation", description = "A series of novels set in a future where mathematician Hari Seldon develops a theory of psychohistory to predict the future of human civilization.", dateOfCreation = DateTime.Now, price = 20, author=context.Author.FirstOrDefault(a => a.Id == "1") ,genre= context.Genre.FirstOrDefault(g=>g.Id=="1")},
                         new Book(){ Id="2",coverUrl=cover2,title = "I, Robot", description = "A collection of interconnected short stories exploring the relationships between humans and robots, and the ethical implications of artificial intelligence.", dateOfCreation = DateTime.Now, price = 20, author=context.Author.FirstOrDefault(a => a.Id == "1") ,genre= context.Genre.FirstOrDefault(g=>g.Id=="2")},
                         new Book(){ Id="3",coverUrl=cover3,title = "The Caves of Steel", description = "A science fiction mystery novel featuring detective Elijah Baley and his robot partner, R. Daneel Olivaw, as they investigate a murder on a futuristic Earth.", dateOfCreation = DateTime.Now, price = 20, author=context.Author.FirstOrDefault(a => a.Id == "1") ,genre= context.Genre.FirstOrDefault(g=>g.Id=="3")},

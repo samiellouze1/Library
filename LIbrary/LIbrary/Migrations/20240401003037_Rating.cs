@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LIbrary.Migrations
 {
     /// <inheritdoc />
-    public partial class nonull : Migration
+    public partial class Rating : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -64,18 +64,6 @@ namespace LIbrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AvailabilityStatus",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AvailabilityStatus", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BookCopyStatus",
                 columns: table => new
                 {
@@ -85,6 +73,18 @@ namespace LIbrary.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookCopyStatus", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BorrowItemStatus",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BorrowItemStatus", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -259,17 +259,11 @@ namespace LIbrary.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     bookId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    availabilityStatusId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     bookCopyStatusId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookCopy", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BookCopy_AvailabilityStatus_availabilityStatusId",
-                        column: x => x.availabilityStatusId,
-                        principalTable: "AvailabilityStatus",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BookCopy_BookCopyStatus_bookCopyStatusId",
                         column: x => x.bookCopyStatusId,
@@ -283,13 +277,32 @@ namespace LIbrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rating",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    rating = table.Column<int>(type: "int", nullable: true),
+                    bookId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rating", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rating_Book_bookId",
+                        column: x => x.bookId,
+                        principalTable: "Book",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BorrowItem",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     bookCopyId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     borrowId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    librarianId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    librarianId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    borrowItemStatusId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -303,6 +316,11 @@ namespace LIbrary.Migrations
                         name: "FK_BorrowItem_BookCopy_bookCopyId",
                         column: x => x.bookCopyId,
                         principalTable: "BookCopy",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_BorrowItem_BorrowItemStatus_borrowItemStatusId",
+                        column: x => x.borrowItemStatusId,
+                        principalTable: "BorrowItemStatus",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BorrowItem_Borrow_borrowId",
@@ -384,11 +402,6 @@ namespace LIbrary.Migrations
                 column: "genreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookCopy_availabilityStatusId",
-                table: "BookCopy",
-                column: "availabilityStatusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BookCopy_bookCopyStatusId",
                 table: "BookCopy",
                 column: "bookCopyStatusId");
@@ -414,9 +427,19 @@ namespace LIbrary.Migrations
                 column: "borrowId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BorrowItem_borrowItemStatusId",
+                table: "BorrowItem",
+                column: "borrowItemStatusId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BorrowItem_librarianId",
                 table: "BorrowItem",
                 column: "librarianId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rating_bookId",
+                table: "Rating",
+                column: "bookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCartItem_bookCopyId",
@@ -451,10 +474,16 @@ namespace LIbrary.Migrations
                 name: "BorrowItem");
 
             migrationBuilder.DropTable(
+                name: "Rating");
+
+            migrationBuilder.DropTable(
                 name: "ShoppingCartItem");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "BorrowItemStatus");
 
             migrationBuilder.DropTable(
                 name: "Borrow");
@@ -464,9 +493,6 @@ namespace LIbrary.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "AvailabilityStatus");
 
             migrationBuilder.DropTable(
                 name: "BookCopyStatus");

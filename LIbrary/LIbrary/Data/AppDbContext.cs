@@ -34,6 +34,7 @@ namespace LIbrary.Data
             builder.Entity<Borrow>().HasOne(b => b.reader).WithMany(r => r.borrows).HasForeignKey(b =>b.readerId).OnDelete(DeleteBehavior.SetNull);
             builder.Entity<BorrowItem>().HasOne(bi => bi.librarian).WithMany(l => l.borrowItems).HasForeignKey(bi => bi.librarianId).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<BorrowItem>().HasOne(bi => bi.borrowItemStatus).WithMany(b => b.borrowItems).HasForeignKey(bi => bi.borrowItemStatusId);
+            builder.Entity<Rating>().HasOne(r => r.book).WithMany(b => b.ratings).HasForeignKey(r => r.bookId);
         }
     }
 }

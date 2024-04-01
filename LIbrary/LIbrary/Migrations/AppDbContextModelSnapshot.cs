@@ -40,21 +40,6 @@ namespace LIbrary.Migrations
                     b.ToTable("Author");
                 });
 
-            modelBuilder.Entity("LIbrary.Models.AvailabilityStatus", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AvailabilityStatus");
-                });
-
             modelBuilder.Entity("LIbrary.Models.Book", b =>
                 {
                     b.Property<string>("Id")
@@ -97,9 +82,6 @@ namespace LIbrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("availabilityStatusId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("bookCopyStatusId")
                         .HasColumnType("nvarchar(450)");
 
@@ -107,8 +89,6 @@ namespace LIbrary.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("availabilityStatusId");
 
                     b.HasIndex("bookCopyStatusId");
 
@@ -212,6 +192,24 @@ namespace LIbrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genre");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.Rating", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("bookId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("bookId");
+
+                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("LIbrary.Models.ShoppingCartItem", b =>
@@ -473,10 +471,6 @@ namespace LIbrary.Migrations
 
             modelBuilder.Entity("LIbrary.Models.BookCopy", b =>
                 {
-                    b.HasOne("LIbrary.Models.AvailabilityStatus", "availabilityStatus")
-                        .WithMany("bookCopies")
-                        .HasForeignKey("availabilityStatusId");
-
                     b.HasOne("LIbrary.Models.BookCopyStatus", "bookCopyStatus")
                         .WithMany("bookCopies")
                         .HasForeignKey("bookCopyStatusId");
@@ -484,8 +478,6 @@ namespace LIbrary.Migrations
                     b.HasOne("LIbrary.Models.Book", "book")
                         .WithMany("bookCopies")
                         .HasForeignKey("bookId");
-
-                    b.Navigation("availabilityStatus");
 
                     b.Navigation("book");
 
@@ -528,6 +520,15 @@ namespace LIbrary.Migrations
                     b.Navigation("borrowItemStatus");
 
                     b.Navigation("librarian");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.Rating", b =>
+                {
+                    b.HasOne("LIbrary.Models.Book", "book")
+                        .WithMany("ratings")
+                        .HasForeignKey("bookId");
+
+                    b.Navigation("book");
                 });
 
             modelBuilder.Entity("LIbrary.Models.ShoppingCartItem", b =>
@@ -601,14 +602,11 @@ namespace LIbrary.Migrations
                     b.Navigation("books");
                 });
 
-            modelBuilder.Entity("LIbrary.Models.AvailabilityStatus", b =>
-                {
-                    b.Navigation("bookCopies");
-                });
-
             modelBuilder.Entity("LIbrary.Models.Book", b =>
                 {
                     b.Navigation("bookCopies");
+
+                    b.Navigation("ratings");
                 });
 
             modelBuilder.Entity("LIbrary.Models.BookCopy", b =>

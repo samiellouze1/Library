@@ -5,8 +5,8 @@ namespace LIbrary.Controllers
 {
     public class ReturnBookController : Controller
     {
-        private readonly IReturnBookService _returnBookService;
-        public ReturnBookController(IReturnBookService returnBookService)
+        private readonly IBorrowBookService _returnBookService;
+        public ReturnBookController(IBorrowBookService returnBookService)
         {
             _returnBookService = returnBookService;
         }

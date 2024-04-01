@@ -1,5 +1,8 @@
-﻿using LIbrary.Services.ShoppingCart;
+﻿using LIbrary.Models;
+using LIbrary.Services.ShoppingCart;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LIbrary.Controllers
 {
@@ -10,9 +13,19 @@ namespace LIbrary.Controllers
         {
             _shoppingCartService = shoppingCartService;
         }
-        public IActionResult Index()
+        [Authorize(Roles ="Reader")]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            string Id = User.FindFirstValue("Id");
+            List<ShoppingCartItem> shoppingCartItems = await _shoppingCartService.GetShoppingCartItemsByReaderIdAsync(Id);
+            return View(shoppingCartItems);
+        }
+        [Authorize(Roles ="Reader")]
+        public async Task<IActionResult> CheckOut()
+        {
+            string Id = User.FindFirstValue("Id");
+            List<ShoppingCartItem> shoppingCartItems = await _shoppingCartService.GetShoppingCartItemsByReaderIdAsync(Id);
+            return View(shoppingCartItems);
         }
     }
 }

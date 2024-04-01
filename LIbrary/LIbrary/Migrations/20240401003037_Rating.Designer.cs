@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LIbrary.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240330155920_nonull")]
-    partial class nonull
+    [Migration("20240401003037_Rating")]
+    partial class Rating
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,21 +41,6 @@ namespace LIbrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Author");
-                });
-
-            modelBuilder.Entity("LIbrary.Models.AvailabilityStatus", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AvailabilityStatus");
                 });
 
             modelBuilder.Entity("LIbrary.Models.Book", b =>
@@ -100,9 +85,6 @@ namespace LIbrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("availabilityStatusId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("bookCopyStatusId")
                         .HasColumnType("nvarchar(450)");
 
@@ -110,8 +92,6 @@ namespace LIbrary.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("availabilityStatusId");
 
                     b.HasIndex("bookCopyStatusId");
 
@@ -169,6 +149,9 @@ namespace LIbrary.Migrations
                     b.Property<string>("borrowId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("borrowItemStatusId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("librarianId")
                         .HasColumnType("nvarchar(450)");
 
@@ -178,9 +161,25 @@ namespace LIbrary.Migrations
 
                     b.HasIndex("borrowId");
 
+                    b.HasIndex("borrowItemStatusId");
+
                     b.HasIndex("librarianId");
 
                     b.ToTable("BorrowItem");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.BorrowItemStatus", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BorrowItemStatus");
                 });
 
             modelBuilder.Entity("LIbrary.Models.Genre", b =>
@@ -196,6 +195,24 @@ namespace LIbrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genre");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.Rating", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("bookId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("bookId");
+
+                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("LIbrary.Models.ShoppingCartItem", b =>
@@ -457,10 +474,6 @@ namespace LIbrary.Migrations
 
             modelBuilder.Entity("LIbrary.Models.BookCopy", b =>
                 {
-                    b.HasOne("LIbrary.Models.AvailabilityStatus", "availabilityStatus")
-                        .WithMany("bookCopies")
-                        .HasForeignKey("availabilityStatusId");
-
                     b.HasOne("LIbrary.Models.BookCopyStatus", "bookCopyStatus")
                         .WithMany("bookCopies")
                         .HasForeignKey("bookCopyStatusId");
@@ -468,8 +481,6 @@ namespace LIbrary.Migrations
                     b.HasOne("LIbrary.Models.Book", "book")
                         .WithMany("bookCopies")
                         .HasForeignKey("bookId");
-
-                    b.Navigation("availabilityStatus");
 
                     b.Navigation("book");
 
@@ -496,6 +507,10 @@ namespace LIbrary.Migrations
                         .WithMany("borrowItems")
                         .HasForeignKey("borrowId");
 
+                    b.HasOne("LIbrary.Models.BorrowItemStatus", "borrowItemStatus")
+                        .WithMany("borrowItems")
+                        .HasForeignKey("borrowItemStatusId");
+
                     b.HasOne("LIbrary.Models.Librarian", "librarian")
                         .WithMany("borrowItems")
                         .HasForeignKey("librarianId")
@@ -505,12 +520,23 @@ namespace LIbrary.Migrations
 
                     b.Navigation("borrow");
 
+                    b.Navigation("borrowItemStatus");
+
                     b.Navigation("librarian");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.Rating", b =>
+                {
+                    b.HasOne("LIbrary.Models.Book", "book")
+                        .WithMany("ratings")
+                        .HasForeignKey("bookId");
+
+                    b.Navigation("book");
                 });
 
             modelBuilder.Entity("LIbrary.Models.ShoppingCartItem", b =>
                 {
-                    b.HasOne("LIbrary.Models.BookCopy", "BookCopy")
+                    b.HasOne("LIbrary.Models.BookCopy", "bookCopy")
                         .WithMany()
                         .HasForeignKey("bookCopyId");
 
@@ -518,7 +544,7 @@ namespace LIbrary.Migrations
                         .WithMany()
                         .HasForeignKey("readerId");
 
-                    b.Navigation("BookCopy");
+                    b.Navigation("bookCopy");
 
                     b.Navigation("reader");
                 });
@@ -579,14 +605,11 @@ namespace LIbrary.Migrations
                     b.Navigation("books");
                 });
 
-            modelBuilder.Entity("LIbrary.Models.AvailabilityStatus", b =>
-                {
-                    b.Navigation("bookCopies");
-                });
-
             modelBuilder.Entity("LIbrary.Models.Book", b =>
                 {
                     b.Navigation("bookCopies");
+
+                    b.Navigation("ratings");
                 });
 
             modelBuilder.Entity("LIbrary.Models.BookCopy", b =>
@@ -600,6 +623,11 @@ namespace LIbrary.Migrations
                 });
 
             modelBuilder.Entity("LIbrary.Models.Borrow", b =>
+                {
+                    b.Navigation("borrowItems");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.BorrowItemStatus", b =>
                 {
                     b.Navigation("borrowItems");
                 });

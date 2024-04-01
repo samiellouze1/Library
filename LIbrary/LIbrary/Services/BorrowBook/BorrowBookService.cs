@@ -4,26 +4,51 @@ using LIbrary.Repository.Specific;
 
 namespace LIbrary.Services.ReturnBook
 {
-    public class ReturnBookService : IReturnBookService
+    public class BorrowBookService : IBorrowBookService
     {
         private readonly IBorrowItemRepository _borrowItemRepository;
         private readonly IBorrowItemStatusRepository _borrowItemStatusRepository;
         private readonly IBookCopyStatusRepository _bookCopyStatusRepository;
         private readonly IBookCopyRepository _bookCopyRepository;
         private readonly ILibrarianRepository _librarianRepository;
-        //private readonly IBookCopyRepository _bookCopyRepository;
-        public ReturnBookService(IBorrowItemRepository borrowItemRepository,
+        private readonly IReaderRepository _readerRepository;
+        private readonly IBorrowRepository _borrowRepository;
+        public BorrowBookService(IBorrowItemRepository borrowItemRepository,
             IBorrowItemStatusRepository borrowItemStatusRepository,
             IBookCopyStatusRepository bookCopyStatusRepository,
             IBookCopyRepository bookCopyRepository,
-            ILibrarianRepository librarianRepository)
+            ILibrarianRepository librarianRepository,
+            IReaderRepository readerRepository,
+            IBorrowRepository borrowRepository)
         {
             _borrowItemStatusRepository = borrowItemStatusRepository;
             _borrowItemRepository = borrowItemRepository;
             _bookCopyStatusRepository = bookCopyStatusRepository;
             _bookCopyRepository = bookCopyRepository;
             _librarianRepository = librarianRepository;
+            _readerRepository = readerRepository;
+            _borrowRepository = borrowRepository;
         }
+
+        public async Task BorrowBooks(string readerId, List<string> bookCopyIds)
+        {
+            Reader reader = await _readerRepository.GetByIdAsync(readerId);
+            Borrow borrow = new Borrow();
+            await _borrowRepository.AddAsync(borrow);
+            BorrowItemStatus borrowedBorrowItemStatus = await _borrowItemStatusRepository.GetByIdAsync("1");
+            BookCopyStatus unavailableBookCopyStatus = await _bookCopyStatusRepository.GetByIdAsync("2");
+            foreach (string bookCopyId in bookCopyIds)
+            {
+                BookCopy bookCopy = await _bookCopyRepository.GetByIdAsync(bookCopyId);
+                bookCopy.bookCopyStatus = unavailableBookCopyStatus;
+                await _bookCopyRepository.UpdateAsync(bookCopyId,bookCopy);
+                BorrowItem borrowItem= new BorrowItem() { bookCopy=bookCopy,borrowItemStatus=borrowedBorrowItemStatus};
+                await _borrowItemRepository.AddAsync(borrowItem);
+                borrow.borrowItems.Add(borrowItem);
+            }
+            await _borrowRepository.AddAsync(borrow);
+        }
+
         public async Task ConfirmReturnBook(string librarianId, string borrowItemId)
         {
             BorrowItem borrowItem = await _borrowItemRepository.GetByIdAsync(borrowItemId,bi=>bi.bookCopy.bookCopyStatus);

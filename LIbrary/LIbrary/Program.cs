@@ -39,7 +39,7 @@ builder.Services.AddScoped<IShoppingCartItemRepository, ShoppingCartItemReposito
 #region Service
 builder.Services.AddScoped<IBookCatalogueService, BookCatalogueService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
-builder.Services.AddScoped<IReturnBookService, ReturnBookService>();
+builder.Services.AddScoped<IBorrowBookService, BorrowBookService>();
 #endregion
 
 #region Authentication

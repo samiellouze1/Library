@@ -650,16 +650,27 @@ a:focus {
   margin: 45px 0;
 }
 
-.client_section .box .img-box {
-  width: 125px;
-  height: 125px;
-  min-width: 125px;
-  border-radius: 100%;
-  overflow: hidden;
-  margin-right: -65px;
-  position: relative;
-  border: 5px solid #9f7746;
+client_section .box .img-box {
+    width: 125px;
+    height: 125px;
+    min-width: 125px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: -65px;
+    position: relative;
+    border: 5px solid #9f7746;
 }
+
+/*.client_section .box .img-box {
+    width: 125px;
+    height: 125px;*/ /* You can adjust the height to change the aspect ratio */
+    /*border-radius: 10px;*/ /* Adjust this value to change the curvature of the corners */
+    /*overflow: hidden;
+    margin-right: -65px;
+    position: relative;
+    border: 5px solid #9f7746;
+}*/
+
 
 .client_section .box .img-box img {
   width: 100%;
