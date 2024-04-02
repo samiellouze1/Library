@@ -14,6 +14,7 @@ namespace LIbrary.Models
         public string? bookCopyStatusId { get; set; }
         public virtual BookCopyStatus bookCopyStatus { get; set; } = new BookCopyStatus();
         public virtual ICollection<BorrowItem> borrowItems { get; set; } = new List<BorrowItem>();
+        // many to many
 
     }
 }

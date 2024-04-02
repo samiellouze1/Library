@@ -124,18 +124,6 @@ namespace LIbrary.Data
                 }
                 #endregion
 
-                #region Borrow
-                if (!context.Borrow.Any())
-                {
-                    context.Borrow.AddRange(new List<Borrow>()
-                    {
-                        new Borrow(){Id="1",reader=context.Reader.FirstOrDefault(r=>r.Id=="1")}, //nekes datetime
-                        new Borrow(){Id="2",reader=context.Reader.FirstOrDefault(r=>r.Id=="1")}
-                    }) ;
-                    context.SaveChanges();
-                }
-                #endregion
-
                 #region
                 if (!context.BorrowItemStatus.Any())
                 {
@@ -152,7 +140,6 @@ namespace LIbrary.Data
                 if (!context.BorrowItem.Any())
                 {
                     // Fetch required objects from the context
-                    var borrow = context.Borrow.FirstOrDefault(b => b.Id == "1");
                     var bookCopy1 = context.BookCopy.FirstOrDefault(bc => bc.Id == "1");
                     var bookCopy11 = context.BookCopy.FirstOrDefault(bc => bc.Id == "11");
                     var bookCopy20 = context.BookCopy.FirstOrDefault(bc => bc.Id == "20");
@@ -161,29 +148,12 @@ namespace LIbrary.Data
                     context.BorrowItem.AddRange(new List<BorrowItem>()
                     {
                         // Assign objects retrieved from context to navigation properties
-                        new BorrowItem { Id = "1", borrow = borrow, bookCopy = bookCopy1 ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="1")},
-                        new BorrowItem { Id = "2", borrow = borrow, bookCopy = bookCopy11 ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="1")},
-                        new BorrowItem { Id = "3", borrow = borrow, bookCopy = bookCopy20,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="2"),librarian=librarian}
+                        new BorrowItem { Id = "1",  bookCopy = bookCopy1 ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="1")},
+                        new BorrowItem { Id = "2",  bookCopy = bookCopy11 ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="1")},
+                        new BorrowItem { Id = "3",  bookCopy = bookCopy20,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="2"),librarian=librarian}
                     });
                     context.SaveChanges();
                 }
-                #endregion
-
-                #region ShoppingCartItem
-                if (!context.ShoppingCartItem.Any())
-                {
-                    // Fetch required objects from the context
-                    var reader = context.Reader.FirstOrDefault(r => r.Id == "1");
-                    var bookCopy = context.BookCopy.FirstOrDefault(bc => bc.Id == "2");
-
-                    context.ShoppingCartItem.AddRange(new List<ShoppingCartItem>()
-                    {
-                        // Assign objects retrieved from context to navigation properties
-                        new ShoppingCartItem { Id = "1", reader = reader, bookCopy = bookCopy }
-                    });
-                    context.SaveChanges();
-                }
-
                 #endregion
 
             }

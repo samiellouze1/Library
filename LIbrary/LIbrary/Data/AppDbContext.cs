@@ -11,12 +11,10 @@ namespace LIbrary.Data
         public DbSet<Book> Book { get; set; }
         public DbSet<BookCopy> BookCopy { get; set; }
         public DbSet<BookCopyStatus> BookCopyStatus { get; set; }
-        public DbSet<Borrow> Borrow { get; set; }
         public DbSet<BorrowItem> BorrowItem { get; set; }
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Reader> Reader { get; set; }
         public DbSet<Librarian> Librarian { get; set; }
-        public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
         public DbSet<BorrowItemStatus> BorrowItemStatus { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {            
@@ -30,11 +28,9 @@ namespace LIbrary.Data
             builder.Entity<BookCopy>().HasOne(bc=>bc.book).WithMany(b=>b.bookCopies).HasForeignKey(bc=>bc.bookId);
             builder.Entity<BookCopy>().HasOne(bc=>bc.bookCopyStatus).WithMany(b=>b.bookCopies).HasForeignKey(bc=>bc.bookCopyStatusId);
             builder.Entity<BorrowItem>().HasOne(b => b.bookCopy).WithMany(b => b.borrowItems).HasForeignKey(b => b.bookCopyId);
-            builder.Entity<BorrowItem>().HasOne(b => b.borrow).WithMany(u => u.borrowItems).HasForeignKey(b => b.borrowId);
-            builder.Entity<Borrow>().HasOne(b => b.reader).WithMany(r => r.borrows).HasForeignKey(b =>b.readerId).OnDelete(DeleteBehavior.SetNull);
             builder.Entity<BorrowItem>().HasOne(bi => bi.librarian).WithMany(l => l.borrowItems).HasForeignKey(bi => bi.librarianId).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<BorrowItem>().HasOne(bi => bi.borrowItemStatus).WithMany(b => b.borrowItems).HasForeignKey(bi => bi.borrowItemStatusId);
-            builder.Entity<Rating>().HasOne(r => r.book).WithMany(b => b.ratings).HasForeignKey(r => r.bookId);
+            builder.Entity<BorrowItem>().HasOne(bi => bi.reader).WithMany(b => b.borrowItems).HasForeignKey(bi => bi.readerId);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace LIbrary.Models
 {
     public class Reader: IdentityUser, IEntityBase
     {
-        public virtual ICollection<Borrow> borrows { get; set; } = new List<Borrow>();
+        public virtual ICollection<BorrowItem> borrowItems { get; set; } = new List<BorrowItem>();
     }
 }

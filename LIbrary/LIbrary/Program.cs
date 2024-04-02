@@ -1,8 +1,8 @@
 using LIbrary.Data;
 using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
+using LIbrary.Services.HistoryService;
 using LIbrary.Services.ReturnBook;
-using LIbrary.Services.ShoppingCart;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,19 +27,22 @@ builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBookRepository,BookRepository>();
 builder.Services.AddScoped<IBookCopyRepository,BookCopyRepository>();
 builder.Services.AddScoped<IBookCopyStatusRepository,BookCopyStatusRepository>();
-builder.Services.AddScoped<IBorrowRepository,BorrowRepository>();
 builder.Services.AddScoped<IBorrowItemRepository, BorrowItemRepository>();
 builder.Services.AddScoped<IBorrowItemStatusRepository,BorrowItemStatusRepository>();
 builder.Services.AddScoped<IGenreRepository,GenreRepository>();
 builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
 builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
-builder.Services.AddScoped<IShoppingCartItemRepository, ShoppingCartItemRepository>();
 #endregion
 
 #region Service
 builder.Services.AddScoped<IBookCatalogueService, BookCatalogueService>();
-builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IBorrowBookService, BorrowBookService>();
+builder.Services.AddScoped<IHistoryService, HistoryService>();
+builder.Services.AddScoped<IReturnBookService, ReturnBookService>();
+#endregion
+
+#region AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
 
 #region Authentication

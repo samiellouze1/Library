@@ -1,6 +1,6 @@
 ﻿using LIbrary.Data;
 using LIbrary.Models;
-using LIbrary.ViewModels.Auth;
+using LIbrary.ViewModels.AuthVM;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +20,6 @@ namespace LIbrary.Controllers
         {
             var loginvm = new LoginVM();
             return View(loginvm);
-
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginvm)
@@ -35,7 +34,7 @@ namespace LIbrary.Controllers
                 var passwordCheck = await _userManager.CheckPasswordAsync(user, loginvm.Password);
                 if (passwordCheck)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, loginvm.Password, false, false);
+                    var result = await _signInManager.PasswordSignInAsync(user, loginvm.Password, true, false);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index", "Home");
@@ -86,7 +85,7 @@ namespace LIbrary.Controllers
                         if (newUserResponse.Succeeded)
                         {
                             await _userManager.AddToRoleAsync(newUser, UserRoles.Reader);
-                            var result = await _signInManager.PasswordSignInAsync(newUser, registervm.Password, false, false);
+                            var result = await _signInManager.PasswordSignInAsync(newUser, registervm.Password, registervm.rememberMe, false);
                             if (result.Succeeded)
                             {
                                 return RedirectToAction("Index", "Home");

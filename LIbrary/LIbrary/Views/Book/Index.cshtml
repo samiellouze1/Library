@@ -1,10 +1,4 @@
-﻿@model List<Book>
-@{
-    ViewData["Title"] = "Books Page";
-}
-
-
-<section class="product_section ">
+﻿<section class="product_section ">
     <div class="container">
         <div class="product_heading">
             <h2>
@@ -15,27 +9,29 @@
             <div class="col-md-6">
                 <div class="form_container">
                     <form asp-action="Index" asp-controller="Book">
-                        <div>
+                        <div class="search-box">
                             <input name="searchString" type="search" placeholder="Search ..." />
-                        </div>
-                        <div class="btn_box">
-                            <button type="submit">
-                                Search
-                            </button>
+                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="product_container">
-
-                @foreach (var item in Model)
-                {
+            @foreach (var item in Model)
+            {
                 <div class="box">
                     <div class="box-content">
-
                         <div class="img-box">
                             <img src="@item.coverUrl" alt="">
+                            @if (item.availability)
+                            {
+                                <span class="label available-label">Available</span>
+                            }
+                            else
+                            {
+                                <span class="label not-available-label">Not Available</span>
+                            }
                         </div>
                         <div class="detail-box">
                             <div class="text">
@@ -61,12 +57,61 @@
                         </div>
                     </div>
                     <div class="btn-box">
-                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id=@item.Id>
-                            Add To Cart
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.Id">
+                            Borrow
                         </a>
                     </div>
                 </div>
-                }
+            }
         </div>
     </div>
 </section>
+
+<style>
+    .search-box {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 5px 10px;
+    }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 5px;
+            border-radius: 20px;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+    .img-box {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .label {
+        position: absolute;
+        bottom: 10px; /* Adjust as needed */
+        right: 10px; /* Adjust as needed */
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 12px;
+        color: white;
+        z-index: 1;
+    }
+
+    .available-label {
+        background-color: green;
+    }
+
+    .not-available-label {
+        background-color: red;
+    }
+</style>

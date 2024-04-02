@@ -450,3 +450,4 @@ C:\Users\ThinkPad\source\repos\.NET Core\LIbrary\LIbrary\LIbrary\bin\Debug\net8.
 C:\Users\ThinkPad\source\repos\.NET Core\LIbrary\LIbrary\LIbrary\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\ThinkPad\source\repos\.NET Core\LIbrary\LIbrary\LIbrary\bin\Debug\net8.0\Microsoft.CodeAnalysis.Razor.dll
 C:\Users\ThinkPad\source\repos\.NET Core\LIbrary\LIbrary\LIbrary\obj\Debug\net8.0\LIbrary.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\ThinkPad\source\repos\.NET Core\LIbrary\LIbrary\LIbrary\bin\Debug\net8.0\AutoMapper.dll

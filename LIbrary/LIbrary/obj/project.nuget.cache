@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "yDBH/U6ZWhMgU0Wd/N9sd9aAqY7I6Ygl0tlkwaU7vOOCm9IjZvFmO7ziUzVUpEv1fCA0epVxIj1hUGz+6kCKjg==",
+  "dgSpecHash": "Scp2VRrvYQt27VTpRYPgXruzrHeNA7ldS9ocJC4IXPOgd/vC9/I32RxYZvLH1RnTB0CjjtdAfNoZQhzcdBw1fA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\LIbrary.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ThinkPad\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\ThinkPad\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ThinkPad\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\ThinkPad\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
