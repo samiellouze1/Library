@@ -7,19 +7,50 @@ namespace LIbrary.Services.BookCatalogue
     public class BookCatalogueService : IBookCatalogueService
     {
         private readonly IBookRepository _bookRepository;
-        public BookCatalogueService(IBookRepository bookRepository)
+        private readonly IBookCopyRepository _bookCopyRepository;
+        private readonly IBorrowItemRepository _borrowItemRepository;
+        public BookCatalogueService(IBookRepository bookRepository, IBookCopyRepository bookCopyRepository, IBorrowItemRepository borrowItemRepository)
         {
             _bookRepository = bookRepository;
+            _bookCopyRepository = bookCopyRepository;
+            _borrowItemRepository = borrowItemRepository;
         }
 
-        public Task<List<Book>> GetAllBooksAsync()
+        public async Task<List<Book>> GetAllBooksAsync()
         {
-            throw new NotImplementedException();
+            ICollection<Book> books = await _bookRepository.GetAllAsync( b=>b.bookCopies,b => b.author, b => b.genre) ;
+            return books.ToList();
         }
 
-        public Task<Book> GetBookByIdAsync(string id)
+        public async Task<Book> GetBookByIdAsync(string bookId)
         {
-            throw new NotImplementedException();
+            Book book = await _bookRepository.GetByIdAsync(bookId,b=>b.bookCopies, b => b.author, b => b.genre);
+            return book;
+        }
+
+        public async Task<bool> IsAvailableNow(string bookId)
+        {
+            var book = await _bookRepository.GetByIdAsync(bookId,b=>b.bookCopies);
+            var bookCopies = book.bookCopies;
+            foreach (var bookCopy in bookCopies)
+            {
+                var bookCopyFull = await _bookCopyRepository.GetByIdAsync(bookCopy.Id, bc => bc.borrowItems);
+                var testThisCopy = true;
+                foreach (var borrowItem in bookCopyFull.borrowItems)
+                {
+                    var borrowItemFull = await _borrowItemRepository.GetByIdAsync(borrowItem.Id,bi=>bi.borrowItemStatus);
+                    if (borrowItemFull.borrowItemStatus.name == "Borrowed") 
+                    {
+                        testThisCopy = false;
+                        break;
+                    }
+                }
+                if (testThisCopy) 
+                { 
+                    return true; 
+                }
+            }
+            return false;
         }
     }
 }

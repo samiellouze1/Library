@@ -26,6 +26,7 @@ namespace LIbrary.Data
             builder.Entity<BookCopy>().HasOne(b => b.book).WithMany(b => b.bookCopies).HasForeignKey(b => b.bookId);
             builder.Entity<BorrowItem>().HasOne(bi => bi.borrowItemStatus).WithMany(b => b.borrowItems).HasForeignKey(bi => bi.borrowItemStatusId);
             builder.Entity<BorrowItem>().HasOne(b => b.bookCopy).WithMany(b => b.borrowItems).HasForeignKey(b => b.bookCopyId);
+            builder.Entity<BorrowItem>().HasOne(bi => bi.reviewRating).WithOne(rr => rr.borrowItem).HasForeignKey<BorrowItem>(bi => bi.reviewRatingId).HasForeignKey<ReviewRating>(rr => rr.borrowItemId);
             builder.Entity<BorrowItem>().HasOne(bi => bi.reader).WithMany(b => b.borrowItems).HasForeignKey(bi => bi.readerId);
         }
     }

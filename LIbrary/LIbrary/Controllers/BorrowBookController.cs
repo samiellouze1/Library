@@ -5,16 +5,12 @@ namespace LIbrary.Controllers
 {
     public class BorrowBookController : Controller
     {
-        private readonly IBorrowBookService _returnBookService;
-        public BorrowBookController(IBorrowBookService returnBookService)
+        private readonly IBorrowBookService _borrowBookService;
+        public BorrowBookController(IBorrowBookService borrowBookService)
         {
-            _returnBookService = returnBookService;
+            _borrowBookService= borrowBookService;
         }
         public IActionResult Index()
-        {
-            return View();
-        }
-        public async Task<IActionResult> ReturnBook(string bookId)
         {
             return View();
         }

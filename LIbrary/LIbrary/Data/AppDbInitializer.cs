@@ -99,9 +99,19 @@ namespace LIbrary.Data
                 #endregion
 
                 #region BorrowItemStatus
+                if (!context.BorrowItemStatus.Any())
+                {
+                    context.BorrowItemStatus.AddRange(new List<BorrowItemStatus>()
+                    {
+                        // Assign objects retrieved from context to navigation properties
+                        new BorrowItemStatus { Id = "1",  name="Borrowed"},
+                        new BorrowItemStatus { Id = "2",  name="Returned"},
+                    });
+                    context.SaveChanges();
+                }
                 #endregion
 
-                #region BorrowItem
+                    #region BorrowItem
                 if (!context.BorrowItem.Any())
                 {
                     // Fetch required objects from the context
@@ -130,8 +140,6 @@ namespace LIbrary.Data
                 #region roles
                 if (!await roleManager.RoleExistsAsync(UserRoles.Reader))
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.Reader));
-                if (!await roleManager.RoleExistsAsync(UserRoles.Librarian))
-                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Librarian));
                 #endregion
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 #region users

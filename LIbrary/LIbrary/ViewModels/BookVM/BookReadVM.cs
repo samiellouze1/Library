@@ -12,7 +12,9 @@ namespace LIbrary.ViewModels.BookVM
         public int? price { get; set; }
         public Author author { get; set; } = new Author();
         public Genre genre { get; set; } = new Genre();
-        public bool? isAlreadyBorrowed {  get; set; }
         public bool? isAvailableNow { get; set; }
+        public bool? isAlreadyBorrowed { get; set; }
+        public int? numberOfCopies { get; set; }
+
     }
 }

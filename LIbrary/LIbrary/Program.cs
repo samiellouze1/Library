@@ -24,6 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(option => option.UseLazyLoadingProxi
 
 #region Repository
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IReviewRatingRepository, ReviewRatingRepository>();
 builder.Services.AddScoped<IBookRepository,BookRepository>();
 builder.Services.AddScoped<IBookCopyRepository,BookCopyRepository>();
 builder.Services.AddScoped<IBorrowItemRepository, BorrowItemRepository>();
@@ -62,17 +63,6 @@ builder.Services.AddAuthorization(options =>
         authBuilder =>
         {
             authBuilder.RequireRole("Reader");
-        });
-
-});
-// add role Librarian
-builder.Services.AddAuthorization(options =>
-{
-
-    options.AddPolicy("Librarian",
-        authBuilder =>
-        {
-            authBuilder.RequireRole("Librarian");
         });
 
 });

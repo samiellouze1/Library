@@ -1,0 +1,133 @@
+﻿<section class="product_section ">
+    <div class="container">
+        <div class="product_heading">
+            <h2>
+                Books
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form_container">
+                    <form asp-action="Books" asp-controller="BookCatalogue">
+                        <div class="search-box">
+                            <input name="searchString" type="search" placeholder="Search ..." />
+                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="product_container">
+            @foreach (var item in Model)
+            {
+                <div class="box">
+                    <div class="box-content">
+                        <div class="img-box">
+                            <img src="@item.coverUrl" alt="">
+                            @if (item.numberOfCopies > 0)
+                            {
+                                <span class="label available-label">@item.numberOfCopies available copies</span>
+                            }
+                            else
+                            {
+                                <span class="label not-available-label">No available copies</span>
+                            }
+                        </div>
+                        <div class="detail-box">
+                            <div class="text">
+                                <h6>
+                                    @item.author.name
+                                </h6>
+                                <h5>
+                                    <span>$</span> @item.price
+                                </h5>
+                            </div>
+                            <div class="like">
+                                <h6>
+                                    @item.title
+                                </h6>
+                                <div class="star_container">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-box">
+                        @if ( item.isAlreadyBorrowed)
+                        {
+                        <a>
+                            Already Borrowed
+                        </a>
+                        }
+                        else if (item.isAvailableNow)
+                        {
+                            <a >
+                                Borrow
+                            </a>
+                        }
+                        else
+                        {
+                            <a>
+                                Unavailable to Borrow
+                            </a>
+                        }
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .search-box {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 5px 10px;
+    }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 5px;
+            border-radius: 20px;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+    .img-box {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .label {
+        position: absolute;
+        bottom: 10px; /* Adjust as needed */
+        right: 10px; /* Adjust as needed */
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 12px;
+        color: white;
+        z-index: 1;
+    }
+
+    .available-label {
+        background-color: green;
+    }
+
+    .not-available-label {
+        background-color: red;
+    }
+</style>
