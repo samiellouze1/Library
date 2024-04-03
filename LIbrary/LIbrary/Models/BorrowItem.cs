@@ -10,9 +10,9 @@ namespace LIbrary.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         [Required]
-        public DateTime startDate { get; set; }
+        public DateTime startDate { get; set; } = DateTime.Now;
         [Required]
-        public DateTime endDate { get; set; }
+        public DateTime endDate { get; set; } = DateTime.Now.AddMonths(1);
         public int? rating { get; set; }
         public string? review { get; set; }
         public string? bookCopyId { get; set; }
@@ -22,6 +22,6 @@ namespace LIbrary.Models
         public string? readerId { get; set; }
         public virtual Reader reader { get; set; }
         public string? borrowItemStatusId { get; set; }
-        public virtual BorrowItemStatus borrowItemStatus { get; set; }= new BorrowItemStatus();
+        public virtual BookCopyStatus borrowItemStatus { get; set; }= new BookCopyStatus();
     }
 }

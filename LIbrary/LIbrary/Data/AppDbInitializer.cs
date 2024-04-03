@@ -127,10 +127,10 @@ namespace LIbrary.Data
                 #region
                 if (!context.BorrowItemStatus.Any())
                 {
-                    context.BorrowItemStatus.AddRange(new List<BorrowItemStatus>()
+                    context.BorrowItemStatus.AddRange(new List<BookCopyStatus>()
                     {
-                        new BorrowItemStatus(){Id="1",name="Borrowed"},
-                        new BorrowItemStatus(){Id="2",name="Returned"}
+                        new BookCopyStatus(){Id="1",name="Borrowed"},
+                        new BookCopyStatus(){Id="2",name="Returned"}
                     });
                     context.SaveChanges() ;
                 }

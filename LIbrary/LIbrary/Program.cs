@@ -26,12 +26,12 @@ builder.Services.AddDbContext<AppDbContext>(option => option.UseLazyLoadingProxi
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IBookRepository,BookRepository>();
 builder.Services.AddScoped<IBookCopyRepository,BookCopyRepository>();
-builder.Services.AddScoped<IBookCopyStatusRepository,BookCopyStatusRepository>();
 builder.Services.AddScoped<IBorrowItemRepository, BorrowItemRepository>();
 builder.Services.AddScoped<IBorrowItemStatusRepository,BorrowItemStatusRepository>();
 builder.Services.AddScoped<IGenreRepository,GenreRepository>();
 builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
 builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
+//timelapse repository
 #endregion
 
 #region Service
