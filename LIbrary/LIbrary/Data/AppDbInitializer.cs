@@ -51,19 +51,6 @@ namespace LIbrary.Data
                 }
                 #endregion
 
-                #region BookCopyStatus
-                if (!context.BookCopyStatus.Any())
-                {
-                    context.BookCopyStatus.AddRange(new List<BookCopyStatus>()
-                    {
-                        new BookCopyStatus(){Id = "1", name="Available"},
-                        new BookCopyStatus(){Id = "2", name="Unavailable"},
-                        new BookCopyStatus(){Id = "3", name="Return Requested"}
-                    });
-                    context.SaveChanges () ;
-                }
-                #endregion
-
                 #region Book
                 if (!context.Book.Any()) 
                 {
@@ -103,20 +90,7 @@ namespace LIbrary.Data
                         for (int j=0;j<10;j++)
                         {
                             k++;
-                            BookCopyStatus bookCopyStatus = new BookCopyStatus();
-                            switch(k)
-                            {
-                                case 1:
-                                    bookCopyStatus = context.BookCopyStatus.FirstOrDefault(bc => bc.Id == "2");
-                                    break;
-                                case 11:
-                                    bookCopyStatus = context.BookCopyStatus.FirstOrDefault(bc => bc.Id == "3");
-                                    break;
-                                default:
-                                    bookCopyStatus = context.BookCopyStatus.FirstOrDefault(bc => bc.Id == "1");
-                                    break;
-                            }
-                            bookCopies.Add(new BookCopy() { Id = k.ToString(),book=context.Book.FirstOrDefault(b=>b.Id==i.ToString()), bookCopyStatus =bookCopyStatus }) ;
+                            bookCopies.Add(new BookCopy() { Id = k.ToString(),book=context.Book.FirstOrDefault(b=>b.Id==i.ToString()) }) ;
                         }
                     }
                     context.BookCopy.AddRange(bookCopies);
@@ -124,16 +98,7 @@ namespace LIbrary.Data
                 }
                 #endregion
 
-                #region
-                if (!context.BorrowItemStatus.Any())
-                {
-                    context.BorrowItemStatus.AddRange(new List<BookCopyStatus>()
-                    {
-                        new BookCopyStatus(){Id="1",name="Borrowed"},
-                        new BookCopyStatus(){Id="2",name="Returned"}
-                    });
-                    context.SaveChanges() ;
-                }
+                #region BorrowItemStatus
                 #endregion
 
                 #region BorrowItem
@@ -143,14 +108,13 @@ namespace LIbrary.Data
                     var bookCopy1 = context.BookCopy.FirstOrDefault(bc => bc.Id == "1");
                     var bookCopy11 = context.BookCopy.FirstOrDefault(bc => bc.Id == "11");
                     var bookCopy20 = context.BookCopy.FirstOrDefault(bc => bc.Id == "20");
-                    var librarian = context.Librarian.FirstOrDefault(l => l.Id == "2");
 
                     context.BorrowItem.AddRange(new List<BorrowItem>()
                     {
                         // Assign objects retrieved from context to navigation properties
                         new BorrowItem { Id = "1",  bookCopy = bookCopy1 ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="1")},
                         new BorrowItem { Id = "2",  bookCopy = bookCopy11 ,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="1")},
-                        new BorrowItem { Id = "3",  bookCopy = bookCopy20,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="2"),librarian=librarian}
+                        new BorrowItem { Id = "3",  bookCopy = bookCopy20,borrowItemStatus=context.BorrowItemStatus.FirstOrDefault(bis=>bis.Id=="2")}
                     });
                     context.SaveChanges();
                 }
@@ -181,14 +145,6 @@ namespace LIbrary.Data
                     await userManager.AddToRoleAsync(newReader, UserRoles.Reader);
                 }
                 //librarian
-                string librarianEmail = "Librarian@library.com";
-                var librarian = await userManager.FindByEmailAsync(librarianEmail);
-                if (librarian == null)
-                {
-                    Librarian newLibrarian = new Librarian {Id="2", UserName = librarianEmail, Email = librarianEmail };
-                    await userManager.CreateAsync(newLibrarian, "Librarian123@");
-                    await userManager.AddToRoleAsync(newLibrarian,UserRoles.Librarian);
-                }
                 #endregion
             }
         }

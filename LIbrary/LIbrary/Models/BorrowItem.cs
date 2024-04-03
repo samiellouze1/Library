@@ -1,10 +1,10 @@
-﻿using LIbrary.Repository.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using LIbrary.Repository.Generic;
 
 namespace LIbrary.Models
 {
-    public class BorrowItem: IEntityBase
+    public class BorrowItem:IEntityBase
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,11 +17,9 @@ namespace LIbrary.Models
         public string? review { get; set; }
         public string? bookCopyId { get; set; }
         public virtual BookCopy bookCopy { get; set; } = new BookCopy();
-        public string? librarianId { get; set; }
-        public virtual Librarian librarian { get; set; } = new Librarian();
         public string? readerId { get; set; }
         public virtual Reader reader { get; set; }
         public string? borrowItemStatusId { get; set; }
-        public virtual BookCopyStatus borrowItemStatus { get; set; }= new BookCopyStatus();
+        public virtual BorrowItemStatus borrowItemStatus { get; set; } = new BorrowItemStatus();
     }
 }
