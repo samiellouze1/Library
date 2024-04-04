@@ -16,9 +16,9 @@ namespace LIbrary.Models
         public string? coverUrl { get; set; }
         public int? price { get; set; }
         public string? authorId { get; set; }
-        public virtual Author author { get; set; } = new Author();
+        public virtual Author author { get; set; } 
         public string? genreId { get; set; }
-        public virtual Genre genre { get; set; } = new Genre();
+        public virtual Genre genre { get; set; }
         public virtual ICollection<BookCopy> bookCopies { get; set; } = new List<BookCopy>();
     }
 }

@@ -61,8 +61,16 @@
       "PackagePath": "staticwebassets\\images\\about-img.jpg"
     },
     {
+      "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\bg-slider-new-modified.png",
+      "PackagePath": "staticwebassets\\images\\bg-slider-new-modified.png"
+    },
+    {
       "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\bg-slider-new.jpg",
       "PackagePath": "staticwebassets\\images\\bg-slider-new.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\bg-slider-newn.jpg",
+      "PackagePath": "staticwebassets\\images\\bg-slider-newn.jpg"
     },
     {
       "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\client.jpg",

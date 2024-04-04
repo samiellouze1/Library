@@ -1,12 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Basic -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
     <link rel="icon" href="@Url.Content("~/images/fevicon/fevicon.png")" type="image/gif" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
@@ -25,8 +22,8 @@
     <div class="hero_area">
         <header class="header_section">
             <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg custom_nav-container ">
-                    <a class="navbar-brand" href="index.html">
+                <nav class="navbar navbar-expand-lg custom_nav-container justify-content-end">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                         <span>
                             Library
                         </span>
@@ -47,10 +44,23 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="BookCatalogue" asp-action="BorrowedBooks">Profile</a>
                             </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item ">
+                                    <a class="nav-link" asp-controller="Auth" asp-action="Logout">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
                             <li class="nav-item ">
-                                <a class="nav-link" asp-controller="Auth" asp-action="Logout">Logout</a>
+                                <a class="nav-link"  asp-controller="Auth" asp-action="Login">Login</a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" asp-controller="Auth" asp-action="Register">Register</a>
+                            </li>
+                            }
                         </ul>
+
                     </div>
                 </nav>
             </div>

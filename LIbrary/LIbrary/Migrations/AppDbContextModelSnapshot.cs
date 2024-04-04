@@ -107,16 +107,16 @@ namespace LIbrary.Migrations
                     b.Property<DateTime>("endDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("rating")
-                        .HasColumnType("int");
-
                     b.Property<string>("readerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("review")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("reviewRatingId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("startDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("supposedEndDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -126,6 +126,10 @@ namespace LIbrary.Migrations
                     b.HasIndex("borrowItemStatusId");
 
                     b.HasIndex("readerId");
+
+                    b.HasIndex("reviewRatingId")
+                        .IsUnique()
+                        .HasFilter("[reviewRatingId] IS NOT NULL");
 
                     b.ToTable("BorrowItem");
                 });
@@ -158,6 +162,27 @@ namespace LIbrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genre");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.ReviewRating", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("borrowItemId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("review")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReviewRating");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -371,6 +396,10 @@ namespace LIbrary.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("Reader");
                 });
 
@@ -412,11 +441,17 @@ namespace LIbrary.Migrations
                         .WithMany("borrowItems")
                         .HasForeignKey("readerId");
 
+                    b.HasOne("LIbrary.Models.ReviewRating", "reviewRating")
+                        .WithOne("borrowItem")
+                        .HasForeignKey("LIbrary.Models.BorrowItem", "reviewRatingId");
+
                     b.Navigation("bookCopy");
 
                     b.Navigation("borrowItemStatus");
 
                     b.Navigation("reader");
+
+                    b.Navigation("reviewRating");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -493,6 +528,12 @@ namespace LIbrary.Migrations
             modelBuilder.Entity("LIbrary.Models.Genre", b =>
                 {
                     b.Navigation("books");
+                });
+
+            modelBuilder.Entity("LIbrary.Models.ReviewRating", b =>
+                {
+                    b.Navigation("borrowItem")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LIbrary.Models.Reader", b =>

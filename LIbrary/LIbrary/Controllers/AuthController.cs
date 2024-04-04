@@ -34,7 +34,7 @@ namespace LIbrary.Controllers
                 var passwordCheck = await _userManager.CheckPasswordAsync(user, loginvm.Password);
                 if (passwordCheck)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, loginvm.Password, true, false);
+                    var result = await _signInManager.PasswordSignInAsync(user, loginvm.Password, loginvm.rememberMe, false);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index", "Home");
@@ -109,7 +109,7 @@ namespace LIbrary.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
