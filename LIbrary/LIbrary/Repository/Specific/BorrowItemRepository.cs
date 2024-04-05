@@ -10,5 +10,15 @@ namespace LIbrary.Repository.Specific
         {
 
         }
+
+        public Task<List<BorrowItem>> GetAllEagerBorrowItems(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<BorrowItem> GetEagerBorrowItemByIdAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

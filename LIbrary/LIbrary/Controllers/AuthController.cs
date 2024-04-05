@@ -105,7 +105,6 @@ namespace LIbrary.Controllers
                 }
             }
         }
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

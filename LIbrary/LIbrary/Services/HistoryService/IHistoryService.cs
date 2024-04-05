@@ -6,5 +6,6 @@ namespace LIbrary.Services.HistoryService
     {
         public Task<List<Book>> GetBorrowedBooksByReaderIdAsync(string id);
         public Task<List<Book>> GetReturnedBooksByReaderIdAsync(string id);
+        public Task<List<Book>> GetHistoryBooksByReaderIdAsync(string id);
     }
 }

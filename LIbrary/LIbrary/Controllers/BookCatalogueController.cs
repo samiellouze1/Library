@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LIbrary.Models;
+using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
 using LIbrary.Services.ReturnBook;
 using LIbrary.ViewModels.BookVM;
@@ -13,29 +14,34 @@ namespace LIbrary.Controllers
     public class BookCatalogueController : Controller
     {
         private readonly IBookCatalogueService _bookCatalogueService;
+        private readonly IBookRepository _bookRepository;
         private readonly IBorrowBookService _borrowBookService;
         private readonly IMapper _mapper;
-        public BookCatalogueController(IBookCatalogueService bookCatalogueService, IMapper mapper, IBorrowBookService borrowBookService)
+        public BookCatalogueController(IBookCatalogueService bookCatalogueService, IMapper mapper, IBorrowBookService borrowBookService, IBookRepository bookRepository)
         {
             _bookCatalogueService = bookCatalogueService;
             _mapper = mapper;
             _borrowBookService = borrowBookService;
+            _bookRepository = bookRepository;
         }
         public async Task<IActionResult> Books(string searchString)
         {
-            List<Book> books = await _bookCatalogueService.GetAllBooksAsync();
-            List<BookReadVM> bookReadVMs = _mapper.Map<List<BookReadVM>>(books);
             string Id = User.FindFirstValue("Id");
-            foreach (var bookRead in bookReadVMs) 
+            var books = await _bookCatalogueService.GetAllBooksAsync();
+            var bookReadVms = new List<BookReadVM>();
+            foreach (Book book in books)
             {
-                if (!Id.IsNullOrEmpty())
+                if (book.Id=="2")
                 {
-                    bookRead.isAlreadyBorrowed = await _borrowBookService.IsAlreadyBorrowed(Id,bookRead.Id);
+                    Console.WriteLine("Hello");
                 }
-                bookRead.isAvailableNow= await _bookCatalogueService.IsAvailableNow(bookRead.Id);
-                Console.WriteLine(bookRead);
+                var readerIds = book.bookCopies.SelectMany(bc => bc.borrowItems).Where(bi => bi.borrowItemStatusId == "1").Select(bi => bi.readerId).ToList();
+                var isAlreadyBorrowed = readerIds.Contains(Id);
+                var bookReadVm = _mapper.Map<BookReadVM>(book);
+                bookReadVm.isAlreadyBorrowed=isAlreadyBorrowed;
+                bookReadVms.Add(bookReadVm);
             }
-            return View(bookReadVMs);
+            return View(bookReadVms);
         }
         public async Task<IActionResult> Book(string bookId)
         {

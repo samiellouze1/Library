@@ -5,8 +5,8 @@
                 Books
             </h2>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row" style="margin-bottom:30px;">
+            <div class="col-md-12">
                 <div class="form_container">
                     <form asp-action="Books" asp-controller="BookCatalogue">
                         <div class="search-box">
@@ -20,9 +20,9 @@
         <div class="product_container">
             @foreach (var item in Model)
             {
-                <div class="box">
-                    <div class="box-content">
-                        <div class="img-box">
+                <div class="box" style="width:350px;">
+                    <div class="box-content" style="height:auto;" >
+                        <div class="img-box" style="margin-top:5px;margin-bottom:15px;height:330px;">
                             <img src="@item.coverUrl" alt="">
                             @if (item.numberOfCopies > 0)
                             {
@@ -33,7 +33,7 @@
                                 <span class="label not-available-label">No available copies</span>
                             }
                         </div>
-                        <div class="detail-box">
+                        <div class="detail-box" style="margin-top:5px; text-align:center;">
                             <div class="text">
                                 <h6>
                                     @item.author.name
@@ -55,27 +55,31 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="btn-box">
-                        @if ( item.isAlreadyBorrowed)
-                        {
-                        <a>
-                            Already Borrowed
-                        </a>
-                        }
-                        else if (item.isAvailableNow)
-                        {
-                            <a >
-                                Borrow
-                            </a>
-                        }
-                        else
-                        {
-                            <a>
-                                Unavailable to Borrow
-                            </a>
-                        }
+                        <div style="text-align:center">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
 
+                            }
+                            else if (item.isAlreadyBorrowed)
+                            {
+                                <a>
+                                    Already borrowed
+                                </a>
+
+                            }
+                            else if (item.numberOfCopies > 0)
+                            {
+                                <a>
+                                    Borrow
+                                </a>
+                            }
+                            else
+                            {
+                                <a>
+                                    Unavailable to Borrow
+                                </a>
+                            }
+                        </div>
                     </div>
                 </div>
             }

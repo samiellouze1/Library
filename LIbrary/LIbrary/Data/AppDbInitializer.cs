@@ -6,17 +6,6 @@ namespace LIbrary.Data
 {
     public class AppDbInitializer
     {
-        //private List<Reader> _reader=new List<Reader>();
-        //private List<Librarian> _librarian=new List<Librarian>();
-        //private List<Genre> _genres=new List<Genre>();
-        //private List<Author> _authors=new List<Author>();
-        //private List<AvailabilityStatus> _availabilityStatuses=new List<AvailabilityStatus>();
-        //private List<Book> _books=new List<Book>();
-        //private List<BookCopy> _bookCopies = new List<BookCopy>();
-        //private List<BookCopyStatus> _bookCopyStatuses=new List<BookCopyStatus>();
-        //private List<Borrow> _borrows=new List<Borrow>();
-        //private List<BorrowItem> _borrowItems=new List<BorrowItem>();
-        //private List<ShoppingCartItem> _shoppingCartItems=new List<ShoppingCartItem>();
         public static void Seed(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
@@ -85,7 +74,7 @@ namespace LIbrary.Data
                         new Book(){ Id="5",coverUrl=cover5,title = "And Then There Were None", description = "A classic mystery novel where ten strangers are invited to a remote island and are mysteriously killed off one by one, with the remaining guests trying to uncover the identity of the murderer.", dateOfCreation = DateTime.Now, price = 20, author=secondAuthor ,genre= secondGenre},
                         new Book(){ Id="6",coverUrl=cover6,title = "The Murder of Roger Ackroyd", description = "A groundbreaking mystery novel known for its clever twist ending, featuring amateur detective Hercule Poirot investigating the murder of a wealthy man in a small English village.", dateOfCreation = DateTime.Now, price = 20, author=secondAuthor ,genre= thirdGenre},
                         new Book(){ Id="7",coverUrl=cover7,title = "The Hobbit", description = "A beloved fantasy novel following the adventures of Bilbo Baggins, a hobbit who embarks on a quest with a group of dwarves and the wizard Gandalf to reclaim their homeland from the dragon Smaug.", dateOfCreation = DateTime.Now, price = 20, author=thirdAuthor ,genre= firstGenre},
-                        new Book(){ Id="8",coverUrl=cover8,title = "The Lord of the Rings: The Fellowship of the Ring", description = "The first volume of Tolkien's epic high fantasy series, following the journey of Frodo Baggins and his companions as they seek to destroy the One Ring and defeat the Dark Lord Sauron.", dateOfCreation = DateTime.Now, price = 20, author=thirdAuthor ,genre= secondGenre},
+                        new Book(){ Id="8",coverUrl=cover8,title = "The Fellowship of the Ring", description = "The first volume of Tolkien's epic high fantasy series, following the journey of Frodo Baggins and his companions as they seek to destroy the One Ring and defeat the Dark Lord Sauron.", dateOfCreation = DateTime.Now, price = 20, author=thirdAuthor ,genre= secondGenre},
                         new Book(){ Id="9",coverUrl=cover9,title = "The Silmarillion", description = "A collection of mythopoeic works that delve into the mythology and history of Middle-earth, including the creation myth, the deeds of the Valar and Maiar, and the tales of Elves, Men, and Dwarves.", dateOfCreation = DateTime.Now, price = 20, author=thirdAuthor ,genre= thirdGenre}
                     });
                     context.SaveChanges();
@@ -97,9 +86,9 @@ namespace LIbrary.Data
                 {
                     List<BookCopy> bookCopies = new List<BookCopy>();
                     int k = 0;
-                    for (int i=1; i < 3; i++)
+                    for (int i=1; i < 10; i++)
                     {
-                        for (int j=0;j<10;j++)
+                        for (int j=1;j<3;j++)
                         {
                             k++;
                             bookCopies.Add(new BookCopy() { Id = k.ToString(),book=context.Book.FirstOrDefault(b=>b.Id==i.ToString()) }) ;
@@ -126,19 +115,21 @@ namespace LIbrary.Data
                     #region BorrowItem
                 if (!context.BorrowItem.Any())
                 {
-                    // Fetch required objects from the context
                     var bookCopy1 = context.BookCopy.FirstOrDefault(bc => bc.Id == "1");
-                    var bookCopy11 = context.BookCopy.FirstOrDefault(bc => bc.Id == "5");
-                    var bookCopy20 = context.BookCopy.FirstOrDefault(bc => bc.Id == "9");
+                    var bookCopy2 = context.BookCopy.FirstOrDefault(bc => bc.Id == "2");
+                    var bookCopy3 = context.BookCopy.FirstOrDefault(bc => bc.Id == "3");
                     var borrowedBorrowItemStatus = context.BorrowItemStatus.FirstOrDefault(bis => bis.Id == "1");
                     var returnedBorrowItemStatus = context.BorrowItemStatus.FirstOrDefault(bis => bis.Id == "2");
+                    var reader1 = context.Reader.FirstOrDefault(r => r.Id == "1");
+                    var reader2 = context.Reader.FirstOrDefault(r => r.Id == "2");
+                    var reader3 = context.Reader.FirstOrDefault(r => r.Id == "3");
 
                     context.BorrowItem.AddRange(new List<BorrowItem>()
                     {
-                        // Assign objects retrieved from context to navigation properties
-                        new BorrowItem { Id = "1",  bookCopy = bookCopy1 ,borrowItemStatus=borrowedBorrowItemStatus},
-                        new BorrowItem { Id = "2",  bookCopy = bookCopy11 ,borrowItemStatus=borrowedBorrowItemStatus},
-                        new BorrowItem { Id = "3",  bookCopy = bookCopy20,borrowItemStatus=returnedBorrowItemStatus}
+                        new BorrowItem { Id = "1",  bookCopy = bookCopy1 ,borrowItemStatus=borrowedBorrowItemStatus,reader=reader2},
+                        new BorrowItem { Id = "2",  bookCopy = bookCopy2 ,borrowItemStatus=borrowedBorrowItemStatus,reader=reader3},
+                        new BorrowItem { Id = "3",  bookCopy = bookCopy3,borrowItemStatus=borrowedBorrowItemStatus,reader=reader1},
+                        new BorrowItem { Id = "4",  bookCopy = bookCopy1,borrowItemStatus=returnedBorrowItemStatus,reader=reader1}
                     });
                     context.SaveChanges();
                 }
@@ -157,7 +148,7 @@ namespace LIbrary.Data
                 #endregion
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 #region users
-                //reader
+                //reader 1
                 string readerEmail = "Reader@library.com";
                 var reader = await userManager.FindByEmailAsync(readerEmail);
                 if (reader == null)
@@ -166,7 +157,24 @@ namespace LIbrary.Data
                     await userManager.CreateAsync(newReader,"Reader123@");
                     await userManager.AddToRoleAsync(newReader, UserRoles.Reader);
                 }
-                //librarian
+                //reader 2
+                string secondaryreaderEmail = "SecondReader@library.com";
+                var secondaryreader = await userManager.FindByEmailAsync(secondaryreaderEmail);
+                if (reader == null)
+                {
+                    Reader newReader = new Reader() { Id = "2", UserName = secondaryreaderEmail, Email = secondaryreaderEmail };
+                    await userManager.CreateAsync(newReader, "Reader123@");
+                    await userManager.AddToRoleAsync(newReader, UserRoles.Reader);
+                }
+                //reader 3
+                string thirdreaderEmail = "ThirdReader@library.com";
+                var thirdreader = await userManager.FindByEmailAsync(thirdreaderEmail);
+                if (reader == null)
+                {
+                    Reader newReader = new Reader() { Id = "3", UserName = thirdreaderEmail, Email = thirdreaderEmail };
+                    await userManager.CreateAsync(newReader, "Reader123@");
+                    await userManager.AddToRoleAsync(newReader, UserRoles.Reader);
+                }
                 #endregion
             }
         }

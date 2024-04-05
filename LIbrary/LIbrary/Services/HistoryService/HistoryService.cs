@@ -9,6 +9,11 @@ namespace LIbrary.Services.HistoryService
             throw new NotImplementedException();
         }
 
+        public Task<List<Book>> GetHistoryBooksByReaderIdAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<List<Book>> GetReturnedBooksByReaderIdAsync(string id)
         {
             throw new NotImplementedException();
