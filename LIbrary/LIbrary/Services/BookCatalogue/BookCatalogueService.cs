@@ -2,7 +2,7 @@
 using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
 
-namespace Library.Services.BookCatalogue
+namespace LIbrary.Services.BookCatalogue
 {
     public class BookCatalogueService : IBookCatalogueService
     {

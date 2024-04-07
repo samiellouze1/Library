@@ -2,7 +2,7 @@
 using LIbrary.ViewModels.ReturnBook;
 using LIbrary.Services.ReturnBook;
 
-namespace Library.Services.ReturnBook
+namespace LIbrary.Services.ReturnBook
 {
     public class ReturnBookService : IReturnBookService
     {

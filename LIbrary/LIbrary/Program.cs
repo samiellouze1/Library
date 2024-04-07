@@ -1,4 +1,5 @@
 using LIbrary.Data;
+using LIbrary.Models;
 using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
 using LIbrary.Services.ReturnBook;
@@ -45,7 +46,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
 
 #region Authentication
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddIdentity<Reader, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddSession();
 builder.Services.AddAuthentication(options =>
 {
@@ -69,7 +70,7 @@ builder.Services.AddAuthorization(options =>
 
 #region Claims
 // Claims are a way to retrieve current logged in (in session) user credentials like id or username
-builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, ApplicationUserClaimsPrincipalFactory>();
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<Reader>, ApplicationUserClaimsPrincipalFactory>();
 #endregion
 
 var app = builder.Build();

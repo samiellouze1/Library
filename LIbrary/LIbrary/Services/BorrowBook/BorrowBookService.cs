@@ -3,7 +3,7 @@ using LIbrary.Repository.Specific;
 using LIbrary.ViewModels.BorrowBook;
 using LIbrary.Services.ReturnBook;
 
-namespace Library.Services.ReturnBook
+namespace LIbrary.Services.ReturnBook
 {
     public class BorrowBookService : IBorrowBookService
     {
