@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="icon" href="@Url.Content("~/images/fevicon/fevicon.png")" type="image/gif" />
+    <link rel="icon" href="@Url.Content("~/images/fevicon/icons8-book-96.png")" type="image/gif" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -38,26 +38,34 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="BookCatalogue" asp-action="Books"> Borrow a book</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="BookCatalogue" asp-action="BorrowedBooks">Return a book</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="BookCatalogue" asp-action="BorrowedBooks">Profile</a>
-                            </li>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <li class="nav-item ">
-                                    <a class="nav-link" asp-controller="Auth" asp-action="Logout">Logout</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="BookCatalogue" asp-action="BorrowedBooks">Return a book</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="BookCatalogue" asp-action="BorrowedBooks">Profile</a>
+                                </li>
+                            }
+                        </ul>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <ul class="navbar-nav">
+                                    <li class="nav-item ">
+                                        <a class="nav-link" asp-controller="Auth" asp-action="Logout">Logout</a>
+                                    </li>
+                                </ul>
                             }
                             else
                             {
-                            <li class="nav-item ">
-                                <a class="nav-link"  asp-controller="Auth" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link"  asp-controller="Auth" asp-action="Register">Register</a>
-                            </li>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link"  asp-controller="Auth" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link"  asp-controller="Auth" asp-action="Register">Register</a>
+                                </li>
+                            </ul>
                             }
                         </ul>
 

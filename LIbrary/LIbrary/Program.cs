@@ -1,7 +1,6 @@
 using LIbrary.Data;
 using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
-using LIbrary.Services.HistoryService;
 using LIbrary.Services.ReturnBook;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;

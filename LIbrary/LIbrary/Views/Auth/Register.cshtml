@@ -2,6 +2,7 @@
 
 @model RegisterVM;
 
+
 <section class="contact_section layout_padding">
     <div class="container">
         <div class="heading_container">
@@ -14,10 +15,13 @@
                 <div class="form_container">
                     <form asp-action="Register" method="POST">
                         <div>
-                            <input asp-for="Name" type="text" placeholder="Your Name" />
+                            <input asp-for="Name" type="text" placeholder="Name" />
                         </div>
                         <div>
                             <input asp-for="Email" type="email" placeholder="Email" />
+                        </div>
+                        <div>
+                            <input asp-for="imageUrl" type="text" id="imageUrlInput" placeholder="Photo URL" onchange="updateImage()" />
                         </div>
                         <div>
                             <input asp-for="Password" type="password" placeholder="Password" />
@@ -39,13 +43,29 @@
                     </form>
                 </div>
             </div>
-@*             <div class="col-md-6 ">
-                <div class="map_container">
-                    <div class="map">
-                        <div id="googleMap"></div>
-                    </div>
+            <div style="display: flex; justify-content: center; align-items: center;margin-left:200px;margin-bottom:50px;">
+                <div id="photo_visualization" style="width: 300px; height: 300px; border-radius: 50%; overflow: hidden; display: flex; justify-content: center; align-items: center; background-color: #f0f0f0;">
+                    <img id="photo_img" src="https://previews.123rf.com/images/bestvectorstock/bestvectorstock1808/bestvectorstock180808154/107321388-photo-camera-of-rounded-square-shape-icon-vector-isolated-on-white-background-for-your-web-and.jpg" alt="Photo" style="max-width: 100%; max-height: 100%; object-fit: cover;">
                 </div>
-            </div> *@
+            </div>
+        </div>
+        <div style="display:flex; justify-content: center; align-items: center;">
+            <h6>
+                Already have an account?
+            </h6>
+            <a asp-controller="Auth" asp-action="Login">
+                <h6>
+                    &nbsp;  Login
+                </h6>
+            </a>
         </div>
     </div>
 </section>
+
+<script>
+    function updateImage() {
+        var imageUrl = document.getElementById("imageUrlInput").value;
+        document.getElementById("photo_img").src = imageUrl;
+    }
+</script>
+

@@ -27,7 +27,7 @@
                 <div class="box" style="width:350px;">
                     <div class="box-content" style="height:auto;" >
                         <div class="img-box" style="margin-top:5px;margin-bottom:15px;height:330px;">
-                            <img src="@item.coverUrl" alt="">
+                            <img src="@item.coverUrl" alt="Click to go to page">
                             @if (item.numberOfCopies > 0)
                             {
                                 <span class="label available-label">@item.numberOfCopies available copies</span>
@@ -62,26 +62,41 @@
                         <div style="text-align:center">
                             @if (!User.Identity.IsAuthenticated)
                             {
-
+                                <div class="product_heading">
+                                    <a asp-controller="Auth" asp-action="Login">
+                                        <h2>
+                                            Login to borrow
+                                        </h2>
+                                    </a>
+                                </div>
                             }
                             else if (item.isAlreadyBorrowed)
                             {
-                                <a>
-                                    Already borrowed
-                                </a>
-
+                                <div class="product_heading">
+                                    <a asp-controller="ReturnBook" asp-action="ReturnBook" asp-route-id=@item.Id>
+                                        <h2 style="background-color:burlywood;">
+                                            Already borrowed, Return
+                                        </h2>
+                                    </a>
+                                </div>
                             }
                             else if (item.numberOfCopies > 0)
                             {
-                                <a>
-                                    Borrow
-                                </a>
+                                <div class="product_heading">
+                                    <a asp-controller="BorrowBook" asp-action="BorrowBook" asp-route-id=@item.Id >
+                                        <h2 >
+                                            Borrow book
+                                        </h2>
+                                    </a>
+                                </div>
                             }
                             else
                             {
-                                <a>
-                                    Unavailable to Borrow
-                                </a>
+                                <div class="product_heading" >
+                                    <h2 style="background-color:red;">
+                                        Unavailable to borrow
+                                    </h2>
+                                </div>
                             }
                         </div>
                     </div>

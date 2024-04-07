@@ -105,6 +105,14 @@
       "PackagePath": "staticwebassets\\images\\fevicon\\fevicon.png"
     },
     {
+      "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\fevicon\\icons8-book-96.png",
+      "PackagePath": "staticwebassets\\images\\fevicon\\icons8-book-96.png"
+    },
+    {
+      "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\fevicon\\icons8-library-100.png",
+      "PackagePath": "staticwebassets\\images\\fevicon\\icons8-library-100.png"
+    },
+    {
       "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\linkedin.png",
       "PackagePath": "staticwebassets\\images\\linkedin.png"
     },
