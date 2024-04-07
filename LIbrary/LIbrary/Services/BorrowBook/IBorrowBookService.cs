@@ -1,9 +1,9 @@
-﻿using LIbrary.Models;
+﻿using LIbrary.ViewModels.BorrowBook;
 
 namespace LIbrary.Services.ReturnBook
 {
     public interface IBorrowBookService
     {
-        public Task BorrowBook(string readerId,string bookId);    
+        public Task BorrowBook(BorrowBookVM borrowBookVM, string readerId);    
     }
 }

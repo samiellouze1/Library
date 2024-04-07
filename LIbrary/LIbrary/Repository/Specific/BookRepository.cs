@@ -35,6 +35,7 @@ namespace LIbrary.Repository.Specific
         {
             var books = await _context.Set<Book>()
                 .Include(b => b.author)
+                .Include(b => b.genre)
                 .Include(b => b.bookCopies)
                 .ThenInclude(bc => bc.borrowItems)
                 .ToListAsync();

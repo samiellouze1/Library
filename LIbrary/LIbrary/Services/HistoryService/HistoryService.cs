@@ -1,22 +1,36 @@
 ﻿using LIbrary.Models;
+using LIbrary.Repository.Specific;
 
 namespace LIbrary.Services.HistoryService
 {
     public class HistoryService : IHistoryService
     {
-        public Task<List<Book>> GetBorrowedBooksByReaderIdAsync(string id)
+        private readonly IReaderRepository _readerRepository;
+
+        public HistoryService(IReaderRepository readerRepository)
         {
-            throw new NotImplementedException();
+            _readerRepository = readerRepository;
         }
 
-        public Task<List<Book>> GetHistoryBooksByReaderIdAsync(string id)
+        public async Task<List<Book>> GetBorrowedBooksByReaderIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var reader = await _readerRepository.GetEagerReaderByIdAsync(id);
+            var books = reader.borrowItems.Where(bi => bi.borrowItemStatusId == "1").Select(r => r.bookCopy).Select(bc => bc.book);
+            return books.ToList();
         }
 
-        public Task<List<Book>> GetReturnedBooksByReaderIdAsync(string id)
+        public async Task<List<Book>> GetHistoryBooksByReaderIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var reader = await _readerRepository.GetEagerReaderByIdAsync(id);
+            var books = reader.borrowItems.Select(r => r.bookCopy).Select(bc=>bc.book);
+            return books.ToList();
+        }
+
+        public async Task<List<Book>> GetReturnedBooksByReaderIdAsync(string id)
+        {
+            var reader = await _readerRepository.GetEagerReaderByIdAsync(id);
+            var books = reader.borrowItems.Where(bi=>bi.borrowItemStatusId=="2").Select(r => r.bookCopy).Select(bc => bc.book);
+            return books.ToList();
         }
     }
 }

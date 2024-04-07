@@ -23,6 +23,7 @@ builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builde
 //builder.Services.AddDbContext<AppDbContext>(option => option.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 #endregion
 
+
 #region Repository
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IReviewRatingRepository, ReviewRatingRepository>();
@@ -32,7 +33,6 @@ builder.Services.AddScoped<IBorrowItemRepository, BorrowItemRepository>();
 builder.Services.AddScoped<IBorrowItemStatusRepository,BorrowItemStatusRepository>();
 builder.Services.AddScoped<IGenreRepository,GenreRepository>();
 builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
-//timelapse repository
 #endregion
 
 #region Service

@@ -3,10 +3,8 @@ using LIbrary.Models;
 using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
 using LIbrary.Services.ReturnBook;
-using LIbrary.ViewModels.BookVM;
-using Microsoft.AspNetCore.Authorization;
+using LIbrary.ViewModels.BookCatalogue;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace LIbrary.Controllers

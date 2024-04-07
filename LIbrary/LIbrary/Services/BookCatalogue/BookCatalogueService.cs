@@ -1,6 +1,5 @@
 ﻿using LIbrary.Models;
 using LIbrary.Repository.Specific;
-using LIbrary.ViewModels.BookVM;
 
 namespace LIbrary.Services.BookCatalogue
 {

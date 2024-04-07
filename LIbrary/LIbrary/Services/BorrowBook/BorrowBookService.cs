@@ -1,6 +1,8 @@
 ﻿
 using LIbrary.Models;
 using LIbrary.Repository.Specific;
+using LIbrary.ViewModels.BorrowBook;
+
 
 namespace LIbrary.Services.ReturnBook
 {
@@ -20,10 +22,10 @@ namespace LIbrary.Services.ReturnBook
             _borrowItemRepository = borrowItemRepository;
         }
 
-        public async Task BorrowBook(string readerId, string bookId)
+        public async Task BorrowBook(BorrowBookVM borrowBookVM, string readerId )
         {
             Reader reader = await _readerRepository.GetByIdAsync(readerId);
-            Book book = await _bookRepository.GetEagerBookByIdAsync(bookId);
+            Book book = await _bookRepository.GetEagerBookByIdAsync(borrowBookVM.bookReadVM.Id);
             BookCopy bookCopy = book.bookCopies.FirstOrDefault(bc => !bc.borrowItems.Any(bi => bi.borrowItemStatusId == "1"));
             if (bookCopy == null)
             {
@@ -32,7 +34,7 @@ namespace LIbrary.Services.ReturnBook
             else
             {
                 var BorrowedborrowItemStatus = await _borrowItemStatusRepository.GetByIdAsync("1");
-                BorrowItem borrowItem = new BorrowItem() { bookCopy = bookCopy, reader = reader, borrowItemStatus = BorrowedborrowItemStatus };
+                BorrowItem borrowItem = new BorrowItem() { bookCopy = bookCopy, reader = reader, borrowItemStatus = BorrowedborrowItemStatus,supposedEndDate=borrowBookVM.endDate,startDate=borrowBookVM.startDate };
                 await _borrowItemRepository.AddAsync(borrowItem);
             }
         }
