@@ -38,7 +38,6 @@ builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
 #region Service
 builder.Services.AddScoped<IBookCatalogueService, BookCatalogueService>();
 builder.Services.AddScoped<IBorrowBookService, BorrowBookService>();
-builder.Services.AddScoped<IHistoryService, HistoryService>();
 builder.Services.AddScoped<IReturnBookService, ReturnBookService>();
 #endregion
 

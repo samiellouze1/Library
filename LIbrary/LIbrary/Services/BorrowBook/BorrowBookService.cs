@@ -26,7 +26,8 @@ namespace LIbrary.Services.ReturnBook
         {
             Reader reader = await _readerRepository.GetByIdAsync(readerId);
             Book book = await _bookRepository.GetEagerBookByIdAsync(borrowBookVM.bookReadVM.Id);
-            BookCopy bookCopy = book.bookCopies.FirstOrDefault(bc => !bc.borrowItems.Any(bi => bi.borrowItemStatusId == "1"));
+            BookCopy bookCopy = book.bookCopies.FirstOrDefault(bc => !bc.borrowItems
+                                                                            .Any(bi => bi.borrowItemStatusId == "1"));
             if (bookCopy == null)
             {
                 throw new Exception();
@@ -34,7 +35,14 @@ namespace LIbrary.Services.ReturnBook
             else
             {
                 var BorrowedborrowItemStatus = await _borrowItemStatusRepository.GetByIdAsync("1");
-                BorrowItem borrowItem = new BorrowItem() { bookCopy = bookCopy, reader = reader, borrowItemStatus = BorrowedborrowItemStatus,supposedEndDate=borrowBookVM.endDate,startDate=borrowBookVM.startDate };
+                BorrowItem borrowItem = new BorrowItem() 
+                { 
+                    bookCopy = bookCopy,
+                    reader = reader,
+                    borrowItemStatus = BorrowedborrowItemStatus,
+                    supposedEndDate=borrowBookVM.endDate,
+                    startDate=borrowBookVM.startDate 
+                };
                 await _borrowItemRepository.AddAsync(borrowItem);
             }
         }

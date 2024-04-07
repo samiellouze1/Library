@@ -22,7 +22,7 @@ namespace LIbrary.Services.ReturnBook
         {
             var book = await _bookRepository.GetEagerBookByIdAsync(returnBookVM.bookReadVM.Id);
             var borrowItems = book.bookCopies.SelectMany(bc => bc.borrowItems).Where(bi => bi.borrowItemStatusId == "2");
-            var borrowItem = borrowItems.ToList().FirstOrDefault(bi=>bi.readerId==readerId);
+            var borrowItem = borrowItems.FirstOrDefault(bi=>bi.readerId==readerId);
             if (borrowItem != null)
             {
                 var returnDate = DateTime.Now;

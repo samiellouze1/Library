@@ -27,7 +27,10 @@ namespace LIbrary.Controllers
         {
             var book = await _bookCatalogueService.GetBookByIdAsync(bookId);
             var bookVM = _mapper.Map<BookReadVM>(book);
-            var borrowVM = new BorrowBookVM() { bookReadVM=bookVM};
+            var borrowVM = new BorrowBookVM() 
+            { 
+                bookReadVM=bookVM
+            };
             return View(borrowVM);
         }
         [HttpPost]
