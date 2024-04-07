@@ -15,7 +15,7 @@ namespace LIbrary.Repository.Specific
 
         public async Task<Book> GetEagerBookByIdAsync(string id)
         {
-            var book = await _context.Set<Book>()
+            var book = await _context.Book
                 .Include(b => b.author)
                 .Include(b => b.genre)
                 .Include(b => b.bookCopies)

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oaULVIHQA9+OHSsMdibMEvZcOtZrQomepXqV/gp5PGU=",
+  "Hash": "IC/oVLiUtNcAaGWIPfruEm5Xhm0ND4CNOJXTLGOKf/8=",
   "Source": "LIbrary",
   "BasePath": "_content/LIbrary",
   "Mode": "Default",
@@ -376,6 +376,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\bg-slider-newn.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\books-stack-with-copy-space.jpg",
+      "SourceId": "LIbrary",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\",
+      "BasePath": "_content/LIbrary",
+      "RelativePath": "images/books-stack-with-copy-space.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\books-stack-with-copy-space.jpg"
     },
     {
       "Identity": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\client.jpg",

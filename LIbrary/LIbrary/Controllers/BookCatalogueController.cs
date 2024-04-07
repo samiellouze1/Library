@@ -40,10 +40,9 @@ namespace LIbrary.Controllers
         }
         public async Task<IActionResult> Book(string bookId)
         {
-            //var book = await _bookCatalogueService.GetBookByIdAsync(bookId);
-            //var bookVM = _mapper.Map<BookReadVM>(book);
-            //return View(bookVM);
-            return View();
+            var book = await _bookCatalogueService.GetBookByIdAsync(bookId);
+            var bookVM = _mapper.Map<BookReadVM>(book);
+            return View(bookVM);
         }
 
         public async Task<IActionResult> MyBorrowedBooks()

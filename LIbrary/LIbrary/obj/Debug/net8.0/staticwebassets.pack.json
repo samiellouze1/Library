@@ -73,6 +73,10 @@
       "PackagePath": "staticwebassets\\images\\bg-slider-newn.jpg"
     },
     {
+      "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\books-stack-with-copy-space.jpg",
+      "PackagePath": "staticwebassets\\images\\books-stack-with-copy-space.jpg"
+    },
+    {
       "Id": "C:\\Users\\ThinkPad\\source\\repos\\.NET Core\\LIbrary\\LIbrary\\LIbrary\\wwwroot\\images\\client.jpg",
       "PackagePath": "staticwebassets\\images\\client.jpg"
     },
