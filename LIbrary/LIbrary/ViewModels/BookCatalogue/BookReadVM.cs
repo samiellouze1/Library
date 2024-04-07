@@ -14,6 +14,6 @@ namespace LIbrary.ViewModels.BookCatalogue
         public Genre genre { get; set; } = new Genre();
         public bool isAlreadyBorrowed { get; set; }
         public int numberOfCopies { get; set; }
-
+        public int averageRating { get; set; }
     }
 }

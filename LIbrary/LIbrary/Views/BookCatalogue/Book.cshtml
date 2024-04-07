@@ -6,14 +6,14 @@
     <div class="container" style="margin-bottom:25px;">
         <div class="product_heading" style="margin-bottom:15px;">
             <h2>
-                Foundation
+                @Model.title
             </h2>
         </div>
         <div style="display:flex" >
             <div class="product_container" style=" height:400px;" >
                 <div class="box" style="height:400px;" >
                     <div class="img-box"  >
-                        <img src="https://strangerthansf.com/scans/asimov-foundation.jpg" style="width:240px; height:400px;" />
+                        <img src=@Model.coverUrl style="width:240px; height:400px;" />
                     </div>
                 </div>
             </div>
@@ -31,28 +31,43 @@
                                     Average Rating
                                 </h6>
                                 <div class="star_container">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    @if (@Model.averageRating > 0)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    }
+                                    @if (@Model.averageRating > 1)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    }
+                                    @if (@Model.averageRating > 2)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    }
+                                    @if (@Model.averageRating > 3)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    }
+                                    @if (@Model.averageRating > 4)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    }
                                 </div>
                             </div>
                         </div>
 
                         <div class="detail-box" style="margin-top:40px;">
                             <h5 style="text-align:left;font-family:'Franklin Gothic Medium';">
-                                Author: Isaac Asimov
+                                Author: @Model.author.name
                             </h5>
                                 <h5 style="text-align:left;font-family:'Franklin Gothic Medium';">
-                                Genre: Science Fiction
+                                Genre: @Model.genre.name
                             </h5>
                         </div>
 
                         <div class="detail-box" style="margin-top:20px;">
                                 <div class="text" style="display:block;font-family:'Franklin Gothic Medium';">
                                 <h5 style="text-align:left;">
-                                        Description: A series of novels set in a future where mathematician Hari Seldon develops a theory of psychohistory to predict the future of human civilization. A series of novels set in a future where mathematician Hari Seldon develops a theory of psychohistory to predict the future of human civilization.
+                                        Description: @Model.description
                                 </h5>
                             </div>
                         </div>

@@ -20,6 +20,7 @@ namespace LIbrary.Repository.Specific
                 .Include(b => b.genre)
                 .Include(b => b.bookCopies)
                 .ThenInclude(bc=>bc.borrowItems)
+                .ThenInclude(bi=>bi.reviewRating)
                 .FirstOrDefaultAsync(b=>b.Id== id);
             if (book == null)
             {
@@ -38,6 +39,7 @@ namespace LIbrary.Repository.Specific
                 .Include(b => b.genre)
                 .Include(b => b.bookCopies)
                 .ThenInclude(bc => bc.borrowItems)
+                .ThenInclude(bi => bi.reviewRating)
                 .ToListAsync();
             return books;
         }

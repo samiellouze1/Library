@@ -4,6 +4,7 @@ using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
 using LIbrary.Services.ReturnBook;
 using LIbrary.ViewModels.BookCatalogue;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -44,7 +45,7 @@ namespace LIbrary.Controllers
             var bookVM = _mapper.Map<BookReadVM>(book);
             return View(bookVM);
         }
-
+        [Authorize(Roles ="Reader")]
         public async Task<IActionResult> MyBorrowedBooks()
         {
             string Id = User.FindFirstValue("Id");
@@ -52,6 +53,7 @@ namespace LIbrary.Controllers
             var bookVms = _mapper.Map<List<BookReadVM>>(books);
             return View(bookVms);
         }
+        [Authorize(Roles ="Reader")]
         public async Task<IActionResult> MyReturnedBooks()
         {
             string Id = User.FindFirstValue("Id");

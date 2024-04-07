@@ -3,6 +3,7 @@ using LIbrary.Services.BookCatalogue;
 using LIbrary.Services.ReturnBook;
 using LIbrary.ViewModels.BookCatalogue;
 using LIbrary.ViewModels.BorrowBook;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -19,10 +20,7 @@ namespace LIbrary.Controllers
             _bookCatalogueService = bookCatalogueService;
             _mapper = mapper;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [Authorize(Roles ="Reader")]
         public async Task<IActionResult> BorrowBook(string bookId)
         {
             var book = await _bookCatalogueService.GetBookByIdAsync(bookId);
@@ -33,6 +31,7 @@ namespace LIbrary.Controllers
             };
             return View(borrowVM);
         }
+        [Authorize(Roles ="Reader")]
         [HttpPost]
         public async Task<IActionResult> BorrowBook(BorrowBookVM borrowVM)
         {
