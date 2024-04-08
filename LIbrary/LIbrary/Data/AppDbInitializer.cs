@@ -1,6 +1,7 @@
 ﻿using LIbrary.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
+using static System.Net.WebRequestMethods;
 
 namespace LIbrary.Data
 {
@@ -112,24 +113,42 @@ namespace LIbrary.Data
                 }
                 #endregion
 
-                    #region BorrowItem
+                #region ReviewRating
+                if (!context.ReviewRating.Any())
+                {
+                    context.ReviewRating.AddRange(new List<ReviewRating>()
+                    {
+                        new ReviewRating {Id="1", rating=5,review="Had a great time reading this! totally recommend this book, especially the last part, when THAT thing happened..."},
+                        new ReviewRating {Id="2", rating=1,review="Not worth it, I was expecting other things, but It can be me"}
+                    });
+                    context.SaveChanges();
+                }
+                #endregion
+                #region BorrowItem
                 if (!context.BorrowItem.Any())
                 {
+                    // bookCopy
                     var bookCopy1 = context.BookCopy.FirstOrDefault(bc => bc.Id == "1");
                     var bookCopy2 = context.BookCopy.FirstOrDefault(bc => bc.Id == "2");
                     var bookCopy3 = context.BookCopy.FirstOrDefault(bc => bc.Id == "3");
+                    // borrowItem
                     var borrowedBorrowItemStatus = context.BorrowItemStatus.FirstOrDefault(bis => bis.Id == "1");
                     var returnedBorrowItemStatus = context.BorrowItemStatus.FirstOrDefault(bis => bis.Id == "2");
+                    // reader
                     var reader1 = context.Reader.FirstOrDefault(r => r.Id == "1");
                     var reader2 = context.Reader.FirstOrDefault(r => r.Id == "2");
                     var reader3 = context.Reader.FirstOrDefault(r => r.Id == "3");
+                    // review
+                    var reviewRatingGood = context.ReviewRating.FirstOrDefault(r => r.Id == "1");
+                    var reviewRatingBad = context.ReviewRating.FirstOrDefault(r => r.Id == "2");
 
                     context.BorrowItem.AddRange(new List<BorrowItem>()
                     {
                         new BorrowItem { Id = "1",  bookCopy = bookCopy1 ,borrowItemStatus=borrowedBorrowItemStatus,reader=reader2},
                         new BorrowItem { Id = "2",  bookCopy = bookCopy2 ,borrowItemStatus=borrowedBorrowItemStatus,reader=reader3},
                         new BorrowItem { Id = "3",  bookCopy = bookCopy3,borrowItemStatus=borrowedBorrowItemStatus,reader=reader1},
-                        new BorrowItem { Id = "4",  bookCopy = bookCopy1,borrowItemStatus=returnedBorrowItemStatus,reader=reader1}
+                        new BorrowItem { Id = "4",  bookCopy = bookCopy1,borrowItemStatus=returnedBorrowItemStatus,reader=reader1,reviewRating=reviewRatingGood},
+                        new BorrowItem { Id = "5",  bookCopy = bookCopy1, borrowItemStatus=returnedBorrowItemStatus,reader=reader3,reviewRating=reviewRatingBad }
                     });
                     context.SaveChanges();
                 }
@@ -146,14 +165,14 @@ namespace LIbrary.Data
                 if (!await roleManager.RoleExistsAsync(UserRoles.Reader))
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.Reader));
                 #endregion
-                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<Reader>>();
                 #region users
                 //reader 1
                 string readerEmail = "Reader@library.com";
                 var reader = await userManager.FindByEmailAsync(readerEmail);
                 if (reader == null)
                 {
-                    Reader newReader = new Reader() { Id="1",UserName = readerEmail, Email = readerEmail };
+                    Reader newReader = new Reader() { Id="1",UserName = readerEmail, Email = readerEmail ,ImageUrl= "https://scontent.ftun14-1.fna.fbcdn.net/v/t1.6435-9/120645766_3263034770470903_6610932504759370937_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=MjAGUgxoQTEAb7cbh1m&_nc_ht=scontent.ftun14-1.fna&oh=00_AfCUhyYkS6raLADU1zRYHzz_eWuO9wkW5gi3Hon2KylK3Q&oe=663BE137" };
                     await userManager.CreateAsync(newReader,"Reader123@");
                     await userManager.AddToRoleAsync(newReader, UserRoles.Reader);
                 }
@@ -162,7 +181,7 @@ namespace LIbrary.Data
                 var secondaryreader = await userManager.FindByEmailAsync(secondaryreaderEmail);
                 if (reader == null)
                 {
-                    Reader newReader = new Reader() { Id = "2", UserName = secondaryreaderEmail, Email = secondaryreaderEmail };
+                    Reader newReader = new Reader() { Id = "2", UserName = secondaryreaderEmail, Email = secondaryreaderEmail, ImageUrl= "https://scontent.ftun14-1.fna.fbcdn.net/v/t39.30808-6/289057250_4012267192331843_3921978455873349113_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=jxNEaQzp_J4Ab50NQx9&_nc_ht=scontent.ftun14-1.fna&oh=00_AfDbLK4fp7BhyfqQLJZF6xA1_Eb-l3wFmBL3YYzu4VKGWg&oe=661A58A0" };
                     await userManager.CreateAsync(newReader, "Reader123@");
                     await userManager.AddToRoleAsync(newReader, UserRoles.Reader);
                 }
@@ -171,7 +190,7 @@ namespace LIbrary.Data
                 var thirdreader = await userManager.FindByEmailAsync(thirdreaderEmail);
                 if (reader == null)
                 {
-                    Reader newReader = new Reader() { Id = "3", UserName = thirdreaderEmail, Email = thirdreaderEmail };
+                    Reader newReader = new Reader() { Id = "3", UserName = thirdreaderEmail, Email = thirdreaderEmail,ImageUrl= "https://scontent.ftun14-1.fna.fbcdn.net/v/t1.6435-9/48425571_2673113052706647_5301663967544868864_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=zfKDpEP7snsAb7WtfLM&_nc_ht=scontent.ftun14-1.fna&oh=00_AfDYXePutyDaK2AJy6SE7f52odaz30f1jbkl2h3g_TTSAA&oe=663BF816" };
                     await userManager.CreateAsync(newReader, "Reader123@");
                     await userManager.AddToRoleAsync(newReader, UserRoles.Reader);
                 }

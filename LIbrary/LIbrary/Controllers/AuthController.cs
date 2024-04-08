@@ -8,9 +8,9 @@ namespace LIbrary.Controllers
 {
     public class AuthController: Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public AuthController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager)
+        private readonly UserManager<Reader> _userManager;
+        private readonly SignInManager<Reader> _signInManager;
+        public AuthController(UserManager<Reader> userManager,SignInManager<Reader> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

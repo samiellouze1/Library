@@ -19,8 +19,11 @@ namespace LIbrary.Repository.Specific
                 .Include(b => b.author)
                 .Include(b => b.genre)
                 .Include(b => b.bookCopies)
-                .ThenInclude(bc=>bc.borrowItems)
-                .ThenInclude(bi=>bi.reviewRating)
+                    .ThenInclude(bc=>bc.borrowItems)
+                        .ThenInclude(bi=>bi.reviewRating)
+                .Include(b=>b.bookCopies)
+                    .ThenInclude(bc=>bc.borrowItems)
+                        .ThenInclude(bi=>bi.reader)
                 .FirstOrDefaultAsync(b=>b.Id== id);
             if (book == null)
             {
@@ -38,8 +41,11 @@ namespace LIbrary.Repository.Specific
                 .Include(b => b.author)
                 .Include(b => b.genre)
                 .Include(b => b.bookCopies)
-                .ThenInclude(bc => bc.borrowItems)
-                .ThenInclude(bi => bi.reviewRating)
+                    .ThenInclude(bc => bc.borrowItems)
+                        .ThenInclude(bi => bi.reviewRating)
+                .Include(b => b.bookCopies)
+                    .ThenInclude(bc => bc.borrowItems)
+                        .ThenInclude(bi => bi.reader)
                 .ToListAsync();
             return books;
         }

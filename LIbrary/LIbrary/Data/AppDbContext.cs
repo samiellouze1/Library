@@ -14,6 +14,7 @@ namespace LIbrary.Data
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Reader> Reader { get; set; }
         public DbSet<BorrowItemStatus> BorrowItemStatus { get; set; }
+        public DbSet<ReviewRating> ReviewRating { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {            
         }

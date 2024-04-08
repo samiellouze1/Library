@@ -10,10 +10,11 @@ namespace LIbrary.ViewModels.BookCatalogue
         public DateTime dateOfCreation { get; set; }
         public string? coverUrl { get; set; }
         public int? price { get; set; }
-        public Author author { get; set; } = new Author();
-        public Genre genre { get; set; } = new Genre();
+        public string? authorName { get; set; }
+        public string? genreName { get; set; }
         public bool isAlreadyBorrowed { get; set; }
         public int numberOfCopies { get; set; }
         public int averageRating { get; set; }
+        public List<ReviewRating> reviewRatings { get; set; }
     }
 }

@@ -10,8 +10,16 @@ public class BookProfile : Profile
     public BookProfile()
     {
         CreateMap<Book, BookReadVM>()
-        .ForMember(dest => dest.numberOfCopies, opt => opt.MapFrom(src => AvailableCopies(src)))
-        .ForMember(dest => dest.averageRating, opt => opt.MapFrom(src => AverageRating(src)));
+            .ForMember(dest => dest.numberOfCopies, opt => opt.MapFrom(src => AvailableCopies(src)))
+            .ForMember(dest => dest.averageRating, opt => opt.MapFrom(src => AverageRating(src)))
+            .ForMember(dest => dest.authorName, opt => opt.MapFrom(src => src.author.name))
+            .ForMember(dest => dest.genreName, opt => opt.MapFrom(src => src.genre.name))
+            .ForMember(dest => dest.reviewRatings, opt => opt.MapFrom(src =>
+                src.bookCopies
+                    .SelectMany(bc => bc.borrowItems
+                        .Select(bi => bi.reviewRating))
+                    .Where(rating => rating != null)  // Filter out null ratings
+                    .ToList()));
     }
     private int AvailableCopies(Book book)
     {
