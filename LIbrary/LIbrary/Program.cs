@@ -2,6 +2,7 @@ using LIbrary.Data;
 using LIbrary.Models;
 using LIbrary.Repository.Specific;
 using LIbrary.Services.BookCatalogue;
+using LIbrary.Services.Payment;
 using LIbrary.Services.ReturnBook;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -39,6 +40,7 @@ builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
 builder.Services.AddScoped<IBookCatalogueService, BookCatalogueService>();
 builder.Services.AddScoped<IBorrowBookService, BorrowBookService>();
 builder.Services.AddScoped<IReturnBookService, ReturnBookService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 #endregion
 
 #region AutoMapper
@@ -72,6 +74,8 @@ builder.Services.AddAuthorization(options =>
 // Claims are a way to retrieve current logged in (in session) user credentials like id or username
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<Reader>, ApplicationUserClaimsPrincipalFactory>();
 #endregion
+
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 
 var app = builder.Build();
 

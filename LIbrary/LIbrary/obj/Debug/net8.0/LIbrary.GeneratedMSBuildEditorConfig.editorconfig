@@ -50,6 +50,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ThinkPad/source/repos/.NET Core/LIbrary/LIbrary/LIbrary/Views/Payment/Cancel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxDYW5jZWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ThinkPad/source/repos/.NET Core/LIbrary/LIbrary/LIbrary/Views/Payment/Success.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxTdWNjZXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ThinkPad/source/repos/.NET Core/LIbrary/LIbrary/LIbrary/Views/ReturnBook/ReturnBook.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV0dXJuQm9va1xSZXR1cm5Cb29rLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
